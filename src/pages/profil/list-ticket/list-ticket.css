@@ -1,0 +1,29 @@
+.list-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .card-container {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  
+  .buttonPagination {
+    padding: 4px 10px;
+    background-color: transparent;
+    color: black;
+    border: 2px solid black;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+    flex: 0 0 auto;
+    margin-bottom: 20px;
+}
+
+.buttonPagination:hover, .buttonItem:hover {
+  background-color: #70b0cf;
+  transform: scale(1.05);
+}

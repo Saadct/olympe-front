@@ -1,0 +1,41 @@
+.card {
+  margin: 10px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  width: 54vw; 
+}
+
+.card.card-green {
+  border: 1px solid green;
+  background-color: rgb(182, 206, 182);
+  border-radius: 20px;
+}
+
+.card.card-red {
+  border: 1px solid red; 
+  background-color: rgb(197, 175, 175);
+  border-radius: 20px;
+
+}
+
+.event-button, .remove-button {
+  background-color: transparent;
+  color: black;
+  border: 2px solid black;
+  padding: 1px 12px;
+  border-radius: 20px;
+  cursor: pointer;
+  flex: 0 0 auto;
+  transition: background-color 0.3s, transform 0.3s;
+  width: 15vw;
+  margin : 5px;
+  text-decoration: none;
+
+}
+
+.event-button:hover, .remove-button:hover {
+text-decoration: underline;
+}
+
+
+

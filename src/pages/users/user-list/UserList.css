@@ -1,0 +1,27 @@
+.action-button {
+    background-color: transparent;
+    color: black;
+    border: 2px solid black;
+    padding: 1px 12px;
+    border-radius: 20px;
+    cursor: pointer;
+    flex: 0 0 auto;
+    transition: background-color 0.3s, transform 0.3s;
+    margin : 5px;
+    text-decoration: none;
+  
+}
+
+.remove:hover{
+    background-color: rgb(174, 102, 102);
+}
+
+.detail:hover{
+    background-color: rgb(108, 166, 173);
+}
+
+
+  
+
+  
+

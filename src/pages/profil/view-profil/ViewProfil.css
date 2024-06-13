@@ -1,0 +1,85 @@
+.headerProfil{
+    align-items: center;
+    margin: 25px;
+}
+
+.input-edit {
+  border: none;
+  border-bottom: 2px solid #000; 
+  outline: none;
+  padding: 5px 0;
+}
+
+.input-edit:focus {
+  border-bottom: 2px solid #acdfdd; 
+}
+
+
+.profile-container {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+    border: 2px solid #ccc; 
+    max-width: 600px;
+    margin: 0 auto;
+    font-family: Arial, sans-serif;
+  }
+  
+  .profile-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  
+  h1, h2 {
+    margin: 0;
+  }
+  
+  .edit-button, .change-password-button {
+    background-color: transparent;
+    color: black;
+    border: 2px solid black;
+    padding: 3px 12px;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+    flex: 0 0 auto;
+    margin-right: 5px;
+
+  }
+
+  .save-button, .cancel-button {
+    background-color: transparent;
+    color: black;
+    border: 2px solid black;
+    padding: 1px 12px;
+    border-radius: 20px;
+    cursor: pointer;
+    flex: 0 0 auto;
+    transition: background-color 0.3s, transform 0.3s;
+    width: 100px;
+    margin : 5px;
+  }
+  
+  .edit-button:hover, .save-button:hover, .change-password-button:hover, .cancel-button:hover {
+    background-color: #acdfdd;
+  }
+  
+  .input-field {
+    width: calc(100% - 20px);
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  .edit-form {
+    display: flex;
+    flex-direction: row;
+  }
+  
+  .change-password-button {
+    margin-top: 20px;
+  }
+  
