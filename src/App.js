@@ -21,6 +21,9 @@ import CGU from './components/politique/cgu';
 import Footer from './components/footer/footer';
 import UserEdit from './pages/users/user-edit/user-edit';
 import UserTicketList from './pages/users/user-ticket-list/user-ticket-list';
+import CategoryList from './pages/category/category-list/category-list';
+import CategoryEdit from './pages/category/category-edit/category-edit';
+import CategoryCreate from './pages/category/category-create/category-create';
 
 function App() {
   const [userRole, setUserRole] = useState(localStorage.getItem('role'));
@@ -53,6 +56,10 @@ function App() {
         <Route path="/admin/user-list" element={<UserList />} />
         <Route path="/admin/user-edit/:id" element={<UserEdit />} />
         <Route path="/admin/user-edit/ticket-list/:id" element={<UserTicketList />} />
+        <Route path="/admin/category-list" element={<CategoryList />} />
+        <Route path="/admin/category-edit/:id" element={<CategoryEdit />} />
+        <Route path="/admin/category-create" element={<CategoryCreate />} />
+
       </Routes>
       {<Footer/>}
       </div>

@@ -67,6 +67,11 @@ const UserTicketList = () => {
     </button>
   
       <div className="table-responsive">
+      {tickets.length == 0 ? (
+        <div className="alert alert-info text-center">
+          Aucun ticket trouvé.
+        </div>
+      ) : (
       <table className="table table-striped">
         <thead>
           <tr>
@@ -79,9 +84,9 @@ const UserTicketList = () => {
         <tbody>
           {tickets.map((ticket) => (
             <tr key={ticket.uuid}>
-              <td>{ticket?.evenement.name}</td>
-              <td>{ticket?.evenement.dateEvent}</td>
-              <td>{ticket?.evenement.hourBegin}</td>
+              <td>{ticket?.evenement?.name}</td>
+              <td>{ticket?.evenement?.dateEvent}</td>
+              <td>{ticket?.evenement?.hourBegin}</td>
 
               <td>
               <button className="action-button detail" onClick={() => detailButtonClick(ticket.evenement.uuid)}>
@@ -92,6 +97,7 @@ const UserTicketList = () => {
           ))}
         </tbody>
       </table>
+      )}
       </div>
       <div className="pagination-controls">
             <div className="pagination-buttons centered-button">

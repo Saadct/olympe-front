@@ -7,8 +7,6 @@ import 'bootstrap';
 import 'bootstrap/dist/css/bootstrap.css';
 import "bootstrap/dist/js/bootstrap.bundle.min";
 import 'bootstrap/js/dist/dropdown';
-import $ from 'jquery';
-import Popper from 'popper.js';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
