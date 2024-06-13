@@ -12,7 +12,7 @@ import NavbarLoggedAdminIn from './components/navbar/NavbarLoggedAdminIn';
 import { useState } from 'react';
 import LogOut from './pages/logout/LogOut';
 import EventListCard from './components/evenement/event-list';
-import EventDetailPage from './pages/events/event-view/EventDetail';
+import EventDetailPage from './pages/event/event-view/EventDetail';
 import ViewProfil from './pages/profil/view-profil/ViewProfil';
 import ChangePasswordPage from './pages/profil/edit-password/EditPassword';
 import TicketList from './pages/profil/list-ticket/list-ticket';
@@ -24,6 +24,9 @@ import UserTicketList from './pages/users/user-ticket-list/user-ticket-list';
 import CategoryList from './pages/category/category-list/category-list';
 import CategoryEdit from './pages/category/category-edit/category-edit';
 import CategoryCreate from './pages/category/category-create/category-create';
+import EventListByIdCategory from './pages/event/event-list-id/event-list-id';
+import EventList from './pages/event/event-list/event-list';
+import EventCreate from './pages/event/event-create/event-create';
 
 function App() {
   const [userRole, setUserRole] = useState(localStorage.getItem('role'));
@@ -59,6 +62,9 @@ function App() {
         <Route path="/admin/category-list" element={<CategoryList />} />
         <Route path="/admin/category-edit/:id" element={<CategoryEdit />} />
         <Route path="/admin/category-create" element={<CategoryCreate />} />
+        <Route path="/admin/event-list-id/:id" element={<EventListByIdCategory/>} />
+        <Route path="/admin/event-list" element={<EventList/>} />
+        <Route path="/admin/event-create" element={<EventCreate/>} />
 
       </Routes>
       {<Footer/>}

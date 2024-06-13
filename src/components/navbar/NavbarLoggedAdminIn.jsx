@@ -13,10 +13,10 @@ const NavbarLoggedAdminIn = () => {
           <Nav.Link href="/">Accueil</Nav.Link>
           <Nav.Link href="/admin/user-list">utilisateur</Nav.Link>
           <Nav.Link href="/admin/category-list">categories</Nav.Link>
-          <Nav.Link href="#link">évenements</Nav.Link>
+          <Nav.Link href="/admin/event-list">évenements</Nav.Link>
         </Nav>
         <Nav className="me-auto">
-          <Nav.Link href="deconection">Déconnection</Nav.Link>
+          <Nav.Link href="/deconection">Déconnection</Nav.Link>
         </Nav>
       </Navbar.Collapse>
     </Container>

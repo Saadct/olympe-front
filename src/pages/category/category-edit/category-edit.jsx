@@ -63,13 +63,10 @@ const CategoryEdit = () => {
   };
 
 
-  const handlePasswordChange = () => {
-    navigate('/user/profil/password');
+  const handleEventById = () => {
+    navigate(`/admin/event-list-id/${id}`);
   };
 
-  const handleTickets = () => {
-    navigate('/user/profil/tickets');
-  };
 
   const returnPreviousPage = () => {
     navigate('/admin/category-list');
@@ -90,15 +87,14 @@ const CategoryEdit = () => {
         <h1 onClick={handleEditCategory}>{isEditingCategory ? <input type="text" name="type" value={editableType} onChange={handleCategoryChange} className="input-edit"/> : "type: " + (type ? type : "")}</h1>
 
         {isEditingCategory && (
-          <form onSubmit={handleCategorySubmit} className="edit-form">
+          <form onSubmit={handleCategorySubmit} className="edit-form mb-3">
             <button type="submit" className="save-button">Save</button>
             <button type="button" className="cancel-button" onClick={() => setIsEditingCategory(false)}>Cancel</button>
           </form>
           
         )}
        
-        <button className="change-password-button" onClick={handlePasswordChange}>Change Password</button>
-        <button className="change-password-button" onClick={handleTickets}>Voir ses tickets</button>
+        <button className="action-button mt-3" onClick={handleEventById}>Voir les évènements liés</button>
 
       </div>
     </div>
