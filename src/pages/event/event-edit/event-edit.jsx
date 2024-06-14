@@ -1,12 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate, useParams } from 'react-router-dom';
-import "./event-create.css"
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import DatePicker from 'react-datepicker';
 
-const EventCreate = () => {
+const EventEdit = () => {
   const [type, setType] = useState('');
   const [name, setName] = useState('');
   const [totalSeats, setTotalSeats] = useState(0);
@@ -14,14 +12,15 @@ const EventCreate = () => {
   const [hourBegin, setHourBegin] = useState('');
   const [hourEnding, setHourEnding] = useState('');
   const [shortDescription, setShortDescription] = useState('');
-
+  const { id } = useParams();
   const [longDescription, setLongDescription] = useState('');
-
-
+  const [event, setEvent] = useState({});
 
   const [categories, setCategories] = useState([]);
   const navigate = useNavigate(); 
   const [categoryId, setCategoryId] = useState('');
+  const [isEditingEvent, setIsEditingEvent] = useState(false);
+  const [categoryName, setCategoryName] = useState('');
 
 
   const fetchCategories = async () => {
@@ -38,11 +37,38 @@ const EventCreate = () => {
     }
   };
 
+  const fetchEvent = async () => {
+    const token = localStorage.getItem('token');
+    try {
+      const response = await axios.get(`http://localhost:8080/evenements/details/${id}`,{
+          headers: {
+            'Authorization': `Bearer ${token}`
+          }
+      });
+      setEvent(response.data);
+      setName(response.data.name);
+      setTotalSeats(response.data.totalSeats);
+      setCategoryId(response.data.category.uuid);
+      setCategoryName(response.data.category.name);
+      setDateEvent(response.data.dateEvent);
+      setHourBegin(response.data.hourBegin);
+      setHourEnding(response.data.hourEnding);
+      setShortDescription(response.data.shortDescription);
+      setLongDescription(response.data.longDescription);
+
+    } catch (error) {
+      console.error('Erreur lors de la récupération de l%évènement:', error);
+    }
+  };
+
+
+
+
 
   const eventSubmit = (e) => {
     e.preventDefault();
     const token = localStorage.getItem('token');
-    axios.post(`http://localhost:8080/evenements`, 
+    axios.put(`http://localhost:8080/evenements/${id}`, 
       { name: name, totalSeats: totalSeats,
         categoryId: categoryId, dateEvent: dateEvent,
         hourBegin: hourBegin, hourEnding: hourEnding,
@@ -83,14 +109,6 @@ const EventCreate = () => {
   };
 
 
-  const handlePasswordChange = () => {
-    navigate('/user/profil/password');
-  };
-
-  const handleTickets = () => {
-    navigate('/user/profil/tickets');
-  };
-
   const returnPreviousPage = () => {
     navigate('/admin/event-list');
   };
@@ -125,7 +143,12 @@ const EventCreate = () => {
 
   };
 
+  const handleEditEvent = () => {
+    setIsEditingEvent(true);
+  };
+
   useEffect(() => {
+    fetchEvent();
     fetchCategories(); 
   }, []); 
 
@@ -135,67 +158,84 @@ const EventCreate = () => {
 
       <div className="profile-container">
         <div className="profile-header mb-3">
-        <h1>Création d'un évènement</h1>
-
+        <h1>Edition/Détail d'un évènement</h1>
+        {!isEditingEvent && (
+            <button className="edit-button" onClick={() => setIsEditingEvent(true)}>Edit Event</button>
+          )}
         </div>
         <h5>Nom</h5>
-        <input type="text" name="name" onChange={handleEventChange} className="input-edit mb-1"/>
-
+        <h5 onClick={handleEditEvent}>{isEditingEvent ? <input type="text" name="name" value={name} onChange={handleEventChange} className="input-edit"/> : name }</h5>
         <h5>Total de place</h5>
-        <input type="number" name="totalSeats" onChange={handleEventChange} className="input-edit"/> 
+        <h5 onClick={handleEditEvent}>{isEditingEvent ? <input type="text" name="totalSeats" value={totalSeats} onChange={handleEventChange} className="input-edit"/> : totalSeats }</h5>
 
+        <h5>Categorie</h5>
+        <h5 onClick={handleEditEvent}>{isEditingEvent ? 
         <div className="form-group">
-          <label>Choisissez une catégorie :</label>
           <select
             id="categoryId"
             className="form-control"
             onChange={handleEventChange}
+            value={categoryId}
           >
             <option value="" >Sélectionnez une catégorie</option>
             {categories.map(category => (
-              <option value={category.uuid}>
+              <option key={category.uuid} value={category.uuid}>
                 {category.name}
               </option>
             ))}
           </select>
         </div>
+            : categoryName }</h5>
 
+        <h5>Date début évènement :</h5>
+        <h5 onClick={handleEditEvent}>{isEditingEvent ? 
         <div class="form-group mt-4">
-        <label>Choisissez une date :</label>
-        <input type="date" className="form-control" onChange={handleEventChange} name="dateEvent"/>
+        <input type="date" className="form-control" value={dateEvent} onChange={handleEventChange} name="dateEvent"/>
         <small className="form-text text-muted">La date doit être celle du présent ou futur, pas passé.</small>
       </div>
+         : dateEvent }</h5>
 
-      <div class="form-group mt-4">
-        <label>Choisissez une heure du début de l'évènement :</label>
-        <input type="time" className="form-control" onChange={handleEventChange} name="hourBegin"/>
-      </div>
+        <h5>Heure début évènement :</h5>
+        <h5 onClick={handleEditEvent}>{isEditingEvent ? 
+        <div class="form-group mt-4">
+            <input type="time" className="form-control" onChange={handleEventChange} value={hourBegin} name="hourBegin"/>
+        </div>
+            : hourBegin }</h5>
 
+    <h5>Heure Fin évènement :</h5>
+    <h5 onClick={handleEditEvent}>{isEditingEvent ? 
       <div class="form-group mt-4 mb-4">
-        <label>Choisissez une heure de fin de l'évènement :</label>
-        <input type="time" className="form-control" onChange={handleEventChange} name="hourEnding"/>
+        <input type="time" className="form-control" onChange={handleEventChange}  value={hourEnding} name="hourEnding"/>
       </div>
+        : hourEnding }</h5>
 
-      <h5>Courte déscription</h5>
-      <textarea type="textarea" name="shortDescription" onChange={handleEventChange}
+
+    <h5>Courte déscription</h5>
+    <h5 onClick={handleEditEvent}>{isEditingEvent ? 
+      <textarea type="textarea" name="shortDescription" onChange={handleEventChange} value={shortDescription}
         style={{ width: "80%", minHeight: "100px", resize: "vertical" }}
       className="input-edit"/> 
+      : shortDescription }</h5>
+
 
     <h5>Longue déscription</h5>
-      <textarea type="textarea" name="longDescription" onChange={handleEventChange}
+    <h5 onClick={handleEditEvent}>{isEditingEvent ? 
+      <textarea type="textarea" name="longDescription" onChange={handleEventChange} value={longDescription}
         style={{ width: "100%", minHeight: "200px", resize: "vertical" }}
       className="input-edit"/> 
+            : longDescription }</h5>
 
 
+    {isEditingEvent && (
     <form onSubmit={eventSubmit} className="edit-form">
     <button type="submit" className="save-button">Save</button>
+    <button type="button" className="cancel-button" onClick={() => setIsEditingEvent(false)}>Cancel</button>
     </form>
-
-          
+    )};
       </div>
       <ToastContainer />
     </div>
   );
 };
 
-export default EventCreate;
+export default EventEdit;

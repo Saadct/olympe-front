@@ -56,7 +56,7 @@ const EventList = () => {
   };
 
   const createEventButton = () => {
-    navigate(`/admin/event-create/`);
+    navigate(`/admin/event-create`); 
   };
 
   const returnPreviousPage = () => {
@@ -99,12 +99,11 @@ const EventList = () => {
   return (
     <div className="container">
     <h1 className="mb-0">Liste des Evenements</h1>
-    <button className="action-button detail" onClick={returnPreviousPage}>
-      retour
-</button>
 
-   <div className="d-flex justify-content-between align-items-center">
-    <div></div>
+
+   <div className="d-flex justify-content-between align-items-center mt-3">
+   <div>
+</div>
     <button className="action-button detail" onClick={createEventButton}>
     Créer 
     </button>
@@ -129,7 +128,7 @@ const EventList = () => {
             <tr key={event.uuid}>
               <td>{event?.name}</td>
               <td>{event?.dateEvent}</td>
-              <td>{event?.evenement?.name}</td>
+              <td>{event?.category?.name}</td>
               <td>
               <button className="action-button detail" onClick={() => detailButtonClick(event.uuid)}>
               <i className="bi bi-search"></i>

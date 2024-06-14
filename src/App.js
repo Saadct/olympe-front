@@ -27,6 +27,7 @@ import CategoryCreate from './pages/category/category-create/category-create';
 import EventListByIdCategory from './pages/event/event-list-id/event-list-id';
 import EventList from './pages/event/event-list/event-list';
 import EventCreate from './pages/event/event-create/event-create';
+import EventEdit from './pages/event/event-edit/event-edit';
 
 function App() {
   const [userRole, setUserRole] = useState(localStorage.getItem('role'));
@@ -65,6 +66,7 @@ function App() {
         <Route path="/admin/event-list-id/:id" element={<EventListByIdCategory/>} />
         <Route path="/admin/event-list" element={<EventList/>} />
         <Route path="/admin/event-create" element={<EventCreate/>} />
+        <Route path="/admin/event-edit/:id" element={<EventEdit/>} />
 
       </Routes>
       {<Footer/>}

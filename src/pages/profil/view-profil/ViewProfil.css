@@ -8,6 +8,7 @@
   border-bottom: 2px solid #000; 
   outline: none;
   padding: 5px 0;
+  width: auto;
 }
 
 .input-edit:focus {
