@@ -101,6 +101,16 @@ const Signup = () => {
             required
           />
         </div>
+        <div className="form-group">
+          <label htmlFor="agree">
+            <input
+              type="checkbox"
+              id="agree"
+              required
+            />
+            I agree to the <a href="/conditions-utilisation" >terms and conditions</a>
+            </label>
+        </div>
  
         <button type="submit">S'inscrire</button>
       </form>

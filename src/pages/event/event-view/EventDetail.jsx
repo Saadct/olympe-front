@@ -64,8 +64,9 @@ const EventDetailPage = () => {
 
       if(token){
       try {
-          const response = await axios.get(`http://localhost:8080/users/ticket/subscription/${eventId}`, 
-            {
+          const response = await axios.post(`http://localhost:8080/users/ticket/subscription/${eventId}`, 
+            {}, 
+              {
             headers: {
               'Authorization': `Bearer ${token}`
             }

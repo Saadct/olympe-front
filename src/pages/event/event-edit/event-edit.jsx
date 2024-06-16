@@ -7,6 +7,8 @@ import 'react-toastify/dist/ReactToastify.css';
 const EventEdit = () => {
   const [type, setType] = useState('');
   const [name, setName] = useState('');
+  const [availableSeats, setAvailableSeats] = useState('');
+
   const [totalSeats, setTotalSeats] = useState(0);
   const [dateEvent, setDateEvent] = useState('');
   const [hourBegin, setHourBegin] = useState('');
@@ -48,6 +50,7 @@ const EventEdit = () => {
       setEvent(response.data);
       setName(response.data.name);
       setTotalSeats(response.data.totalSeats);
+      setAvailableSeats(response.data.availableSeats);
       setCategoryId(response.data.category.uuid);
       setCategoryName(response.data.category.name);
       setDateEvent(response.data.dateEvent);
@@ -69,8 +72,8 @@ const EventEdit = () => {
     e.preventDefault();
     const token = localStorage.getItem('token');
     axios.put(`http://localhost:8080/evenements/${id}`, 
-      { name: name, totalSeats: totalSeats,
-        categoryId: categoryId, dateEvent: dateEvent,
+      { name: name,
+        categoryId: categoryId, dateEvent: dateEvent, totalSeats: totalSeats,
         hourBegin: hourBegin, hourEnding: hourEnding,
         shortDescription: shortDescription, longDescription: longDescription
       }
@@ -78,6 +81,7 @@ const EventEdit = () => {
         headers: {
           'Authorization': `Bearer ${token}`
         }
+        
       }).then(response => {
         toast.success('Catégorie ajoutée avec succès !', {
           position: "top-right",
@@ -88,11 +92,11 @@ const EventEdit = () => {
           draggable: true,
           progress: undefined,
         });
-
+/*
         setTimeout(() => {
             navigate('/admin/event-list');
           }, 2000); 
-
+*/
       })
       .catch(error => {
         toast.error('Erreur lors de l\'ajout de la évènement.', {
@@ -111,6 +115,10 @@ const EventEdit = () => {
 
   const returnPreviousPage = () => {
     navigate('/admin/event-list');
+  };
+
+  const viewSubscription = () => {
+    navigate(`/admin/event-edit/subscription-list/${id}`);
   };
 
   
@@ -163,17 +171,15 @@ const EventEdit = () => {
             <button className="edit-button" onClick={() => setIsEditingEvent(true)}>Edit Event</button>
           )}
         </div>
-        <h5>Nom</h5>
-        <h5 onClick={handleEditEvent}>{isEditingEvent ? <input type="text" name="name" value={name} onChange={handleEventChange} className="input-edit"/> : name }</h5>
-        <h5>Total de place</h5>
-        <h5 onClick={handleEditEvent}>{isEditingEvent ? <input type="text" name="totalSeats" value={totalSeats} onChange={handleEventChange} className="input-edit"/> : totalSeats }</h5>
+        <h5 onClick={handleEditEvent}>Nom: {isEditingEvent ? <input type="text" name="name" value={name} onChange={handleEventChange} className="input-edit"/> : name }</h5>
+        <h5 onClick={handleEditEvent}>Total de place: {isEditingEvent ? <input type="text" name="totalSeats" value={totalSeats} onChange={handleEventChange} className="input-edit"/> : totalSeats }</h5>
+        <h5>Place disponible: {availableSeats}</h5>
 
-        <h5>Categorie</h5>
-        <h5 onClick={handleEditEvent}>{isEditingEvent ? 
+        <h5 onClick={handleEditEvent}> Categorie :{isEditingEvent ? 
         <div className="form-group">
           <select
             id="categoryId"
-            className="form-control"
+            className="form-control mt-1"
             onChange={handleEventChange}
             value={categoryId}
           >
@@ -187,25 +193,22 @@ const EventEdit = () => {
         </div>
             : categoryName }</h5>
 
-        <h5>Date début évènement :</h5>
-        <h5 onClick={handleEditEvent}>{isEditingEvent ? 
-        <div class="form-group mt-4">
+        <h5 onClick={handleEditEvent}>Date début évènement: {isEditingEvent ? 
+        <div class="form-group mt-1">
         <input type="date" className="form-control" value={dateEvent} onChange={handleEventChange} name="dateEvent"/>
         <small className="form-text text-muted">La date doit être celle du présent ou futur, pas passé.</small>
       </div>
          : dateEvent }</h5>
 
-        <h5>Heure début évènement :</h5>
-        <h5 onClick={handleEditEvent}>{isEditingEvent ? 
+        <h5 onClick={handleEditEvent}>Heure début évènement: {isEditingEvent ? 
         <div class="form-group mt-4">
             <input type="time" className="form-control" onChange={handleEventChange} value={hourBegin} name="hourBegin"/>
         </div>
             : hourBegin }</h5>
 
-    <h5>Heure Fin évènement :</h5>
-    <h5 onClick={handleEditEvent}>{isEditingEvent ? 
+    <h5 onClick={handleEditEvent}>Heure Fin évènement: {isEditingEvent ? 
       <div class="form-group mt-4 mb-4">
-        <input type="time" className="form-control" onChange={handleEventChange}  value={hourEnding} name="hourEnding"/>
+        <input type="time" className="form-control" onChange={handleEventChange} value={hourEnding} name="hourEnding"/>
       </div>
         : hourEnding }</h5>
 
@@ -232,7 +235,13 @@ const EventEdit = () => {
     <button type="button" className="cancel-button" onClick={() => setIsEditingEvent(false)}>Cancel</button>
     </form>
     )};
+
+{!isEditingEvent && (
+        <button className="action-button" onClick={viewSubscription}>Voir les inscriptions lié</button>
+     
+   )}
       </div>
+      
       <ToastContainer />
     </div>
   );

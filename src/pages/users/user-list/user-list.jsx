@@ -8,7 +8,6 @@ const UserList = () => {
   const [page, setPage] = useState(0);
   const [size, setSize] = useState(2);
 
-  const [currentPage, setCurrentPage] = useState(0);
   const [totalPages, setTotalPages] = useState(0);
 
   const navigate = useNavigate(); 
@@ -32,27 +31,28 @@ const UserList = () => {
     }
   };
 
-
     useEffect(() => {
       fetchUsers(page, size);
     }, [page, size]);
 
   const nextPage = async () => {
-    if (currentPage < totalPages - 1) { 
-      await fetchUsers(currentPage + 1, size);
-      setCurrentPage(currentPage + 1);
+    if (page < totalPages - 1) { 
+      setPage(page + 1);
     }
   };
   
   const previousPage = async () => {
-    if (currentPage > 0) {
-      await fetchUsers(currentPage - 1, size);  
-      setCurrentPage(currentPage - 1);
+    if (page > 0) {
+      setPage(page - 1);
     }
   };
 
   const detailButtonClick = (userId) => {
     navigate(`/admin/user-edit/${userId}`);
+  };
+
+  const createButtonClick = () => {
+    navigate(`/admin/user-create`);
   };
 
   return (
@@ -61,7 +61,7 @@ const UserList = () => {
 
    <div className="d-flex justify-content-between align-items-center">
     <div></div>
-    <button className="action-button detail">
+    <button className="action-button detail" onClick={createButtonClick}>
     Créer 
     </button>
   </div>
@@ -98,14 +98,14 @@ const UserList = () => {
       <div className="pagination-controls">
             <div className="pagination-buttons centered-button">
               <div>
-                {currentPage + 1} / {totalPages} 
+                {page + 1} / {totalPages} 
               </div>
             </div>
             <div className="pagination-buttons centered-button">
-              <button onClick={previousPage} className="buttonPagination" disabled={currentPage === 0}>
+              <button onClick={previousPage} className="buttonPagination" disabled={page === 0}>
                 &lt;
               </button>
-              <button onClick={nextPage} className="buttonPagination" disabled={currentPage === totalPages}>
+              <button onClick={nextPage} className="buttonPagination" disabled={page === totalPages}>
                 &gt;
               </button>
             </div>

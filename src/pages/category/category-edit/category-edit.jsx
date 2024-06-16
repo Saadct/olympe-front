@@ -64,7 +64,7 @@ const CategoryEdit = () => {
 
 
   const handleEventById = () => {
-    navigate(`/admin/event-list-id/${id}`);
+    navigate(`/admin/category-list-event/${id}`);
   };
 
 

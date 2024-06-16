@@ -115,9 +115,10 @@ const TicketList = () => {
   };
   
   return (
-    <div>
-      <Link to="/user/profil" className="btn btn-primary">retour</Link> 
+    <div className="centered-container">
       <h1>Mes tickets</h1>
+      <Link to="/user/profil" className="return-button">retour</Link> 
+
       <div className="pagination-buttons centered-button">
         <button onClick={() => changeItemsPerPageTicketCard(0, size)} className="buttonPagination">
           tout

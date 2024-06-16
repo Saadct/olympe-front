@@ -2,38 +2,42 @@
   margin: 10px;
   padding: 10px;
   border: 1px solid #ccc;
-  width: 54vw; 
+  width: 54vw;
+  transition: box-shadow 0.3s ease; 
+}
+
+.card:hover {
+  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.2);
 }
 
 .card.card-green {
   border: 1px solid green;
-  background-color: rgb(182, 206, 182);
+  background-color: rgb(194, 210, 194);
   border-radius: 20px;
 }
 
 .card.card-red {
   border: 1px solid red; 
-  background-color: rgb(197, 175, 175);
+  background-color: rgb(203, 195, 195);
   border-radius: 20px;
 
 }
 
-.event-button, .remove-button {
+.view-button {
   background-color: transparent;
   color: black;
-  border: 2px solid black;
-  padding: 1px 12px;
+  border: 1px solid black;
+  padding: 5px 12px;
   border-radius: 20px;
   cursor: pointer;
   flex: 0 0 auto;
   transition: background-color 0.3s, transform 0.3s;
-  width: 15vw;
   margin : 5px;
   text-decoration: none;
-
+  
 }
 
-.event-button:hover, .remove-button:hover {
+.view-button:hover{
 text-decoration: underline;
 }
 

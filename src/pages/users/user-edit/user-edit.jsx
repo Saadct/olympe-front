@@ -2,6 +2,9 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate, useParams } from 'react-router-dom';
 import './user-edit.css'
+import { ToastContainer, toast } from 'react-toastify';
+
+
 
 const UserEdit = () => {
   const [fullname, setFullname] = useState('');
@@ -12,7 +15,7 @@ const UserEdit = () => {
   const navigate = useNavigate(); 
   const { id } = useParams(); 
 
-  useEffect(() => {
+  const fetchUser = async () =>{
     const token = localStorage.getItem('token');
     axios.get(`http://localhost:8080/users/informations/${id}`, {
       headers: {
@@ -30,16 +33,54 @@ const UserEdit = () => {
     .catch(error => {
       console.error('Erreur lors de la récupération des informations de profil:', error);
     });
-  }, []);
+  }
+
+  const handleRole = async () => {
+    const token = localStorage.getItem('token');
+    try {
+      await axios.patch(`http://localhost:8080/users/change-role/${id}`,{}, {
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      });
+      toast.success('Changement de role effectué avec succès !', {
+        position: "top-right",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+      fetchUser();
+    //  await fetchEventSubscriptions(page, size);
+    } catch (error) {
+      toast.error('Erreur lors du changement du role.', {
+        position: "top-right",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+    }
+  };
 
 
   const handleTickets = () => {
     navigate(`/admin/user-edit/ticket-list/${id}`);
   };
 
+
+
   const returnToTheList = () => {
     navigate('/admin/user-list');
   };
+
+  useEffect(() => {
+    fetchUser();
+  }, []);
 
   return (
     <div>
@@ -59,9 +100,11 @@ const UserEdit = () => {
         <p>Role: {role} </p>
        
         <button className="change-password-button" onClick={handleTickets}>Voir ses tickets</button>
-        <button className="change-password-button" onClick={handleTickets}>Changer son role</button>
+        <button className="change-password-button" onClick={handleRole}>Changer son role</button>
 
       </div>
+      <ToastContainer />
+
     </div>
   );
 };

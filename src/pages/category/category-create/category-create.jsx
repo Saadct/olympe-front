@@ -81,12 +81,10 @@ const CategoryCreate = () => {
         <h1>Création d'une categorie</h1>
 
         </div>
-        <h5>Nom</h5>
-        <input type="text" name="name" value={name} onChange={handleCategoryChange} className="input-edit"/>
+        <input type="text" name="name" value={name} onChange={handleCategoryChange} className="input-edit input-spacing" placeholder='nom'/>
 
-        <h5>Type</h5>
 
-        <input type="text" name="type" value={type} onChange={handleCategoryChange} className="input-edit"/> 
+        <input type="text" name="type" value={type} onChange={handleCategoryChange} className="input-edit input-spacing" placeholder='type'/> 
           <form onSubmit={categorySubmit} className="edit-form">
             <button type="submit" className="save-button">Save</button>
           </form>

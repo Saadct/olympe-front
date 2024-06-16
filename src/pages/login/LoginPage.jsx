@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { ToastContainer, toast } from 'react-toastify';
 
 
 const LoginPage = ({setIsLoggedIn}) => {
@@ -17,7 +18,16 @@ const LoginPage = ({setIsLoggedIn}) => {
       });
       console.log('Login successful:', response);
       console.log('Login successful:', response.data);
-   
+
+      toast.success('connection avec succès !', {
+        position: "top-right",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
       if (response.headers.has('Authorization')) {
         localStorage.setItem('role', response.data.role);
         setIsLoggedIn(true); 
@@ -25,12 +35,17 @@ const LoginPage = ({setIsLoggedIn}) => {
         console.log('Authorization Header:', response.headers.get('Authorization'));
         console.log(localStorage.getItem('token'));
         window.location.href = '/';
-      } else {
-        console.log('Authorization Header not present in response');
       }
-      
     } catch (error) {
-      console.error('Login failed:', error.response ? error.response.data : error.message);
+      toast.error('Erreur lors de la connection.', {
+        position: "top-right",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
     }
   };
 
@@ -58,18 +73,11 @@ const LoginPage = ({setIsLoggedIn}) => {
             required
           />
         </div>
-        <div className="form-group">
-          <label htmlFor="agree">
-            <input
-              type="checkbox"
-              id="agree"
-              required
-            />
-            I agree to the <a href="/conditions-utilisation" >terms and conditions</a>
-            </label>
-        </div>
+      
         <button type="submit">Login</button>
       </form>
+      <ToastContainer />
+
     </div>
   );
 };

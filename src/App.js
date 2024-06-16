@@ -24,10 +24,12 @@ import UserTicketList from './pages/users/user-ticket-list/user-ticket-list';
 import CategoryList from './pages/category/category-list/category-list';
 import CategoryEdit from './pages/category/category-edit/category-edit';
 import CategoryCreate from './pages/category/category-create/category-create';
-import EventListByIdCategory from './pages/event/event-list-id/event-list-id';
+import EventListByIdCategory from './pages/category/category-list-event/category-list-event';
 import EventList from './pages/event/event-list/event-list';
 import EventCreate from './pages/event/event-create/event-create';
 import EventEdit from './pages/event/event-edit/event-edit';
+import EventSubscriptionList from './pages/event/event-subscription-list/event-subscription-list';
+import UserCreate from './pages/users/user-create/user-create';
 
 function App() {
   const [userRole, setUserRole] = useState(localStorage.getItem('role'));
@@ -58,15 +60,17 @@ function App() {
         <Route path="/user/profil/tickets" element={<TicketList />} />
         <Route path="/conditions-utilisation" element={<CGU />} />
         <Route path="/admin/user-list" element={<UserList />} />
+        <Route path="/admin/user-create" element={<UserCreate />} />
         <Route path="/admin/user-edit/:id" element={<UserEdit />} />
         <Route path="/admin/user-edit/ticket-list/:id" element={<UserTicketList />} />
         <Route path="/admin/category-list" element={<CategoryList />} />
         <Route path="/admin/category-edit/:id" element={<CategoryEdit />} />
         <Route path="/admin/category-create" element={<CategoryCreate />} />
-        <Route path="/admin/event-list-id/:id" element={<EventListByIdCategory/>} />
+        <Route path="/admin/category-list-event/:id" element={<EventListByIdCategory/>} />
         <Route path="/admin/event-list" element={<EventList/>} />
         <Route path="/admin/event-create" element={<EventCreate/>} />
         <Route path="/admin/event-edit/:id" element={<EventEdit/>} />
+        <Route path="/admin/event-edit/subscription-list/:id" element={<EventSubscriptionList/>} />
 
       </Routes>
       {<Footer/>}

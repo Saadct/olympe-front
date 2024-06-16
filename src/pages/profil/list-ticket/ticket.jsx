@@ -38,11 +38,11 @@ const CardTicket = ({ ticket }) => {
         <p className="card-text">{ticket.evenement.description}</p>
         <p>Category: {ticket.evenement.category?.name}</p>
         <p>date: {ticket?.evenement.dateEvent}</p>
-        <p>Heure de début: {ticket.hourBegin}</p>
-        <p>Heure de fin: {ticket.hourEnding}</p>
-        <Link to={`/evenements/details/${ticket.evenement.uuid}`} className="event-button">Voir l'évenement</Link>
-       {eventDate < currentDate && (
-          <button onClick={() => handleUnsubscribe(ticket.evenement.uuid)} className="remove-button">Se désinscrire</button>
+        <p>Heure de début: {ticket.evenement.hourBegin}</p>
+        <p>Heure de fin: {ticket.evenement.hourEnding}</p>
+        <Link to={`/evenements/details/${ticket.evenement.uuid}`} className="view-button">Voir l'évenement</Link>
+       {eventDate > currentDate && (
+          <button onClick={() => handleUnsubscribe(ticket.uuid)} className="view-button">Se désinscrire</button>
      )}
          </div>
     </div>

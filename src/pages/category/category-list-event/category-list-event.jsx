@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate, useParams } from 'react-router-dom'; 
+import { ToastContainer, toast } from 'react-toastify';
 
 
 const EventListByIdCategory = () => {
@@ -17,7 +18,7 @@ const EventListByIdCategory = () => {
   const fetchEvents = async (page, size) => {
     const token = localStorage.getItem('token');
     try {
-      const response = await axios.get(`http://localhost:8080/evenements/paginated/${page}/${size}/${id}`,{
+      const response = await axios.get(`http://localhost:8080/evenements/paginatedByCategory/${page}/${size}/${id}`,{
           headers: {
             'Authorization': `Bearer ${token}`
           }
@@ -31,6 +32,38 @@ const EventListByIdCategory = () => {
     }
   };
 
+
+  const deleteEvent = async (id) => {
+    const token = localStorage.getItem('token');
+    try {
+      await axios.delete(`http://localhost:8080/evenements/${id}`, {
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      });
+      toast.success('Evenement supprimée avec succès !', {
+        position: "top-right",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+      await fetchEvents(page, size);
+    } catch (error) {
+      toast.error('Erreur lors de la suppression de l%évènement.', {
+        position: "top-right",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+      console.error('Erreur lors de la suppression de l%évènement:', error);
+    }
+  };
 
     useEffect(() => {
         fetchEvents(page, size);
@@ -65,12 +98,10 @@ const EventListByIdCategory = () => {
   return (
     <div className="container">
     <h1 className="mb-0">Liste des Evenements</h1>
-    <button className="action-button detail" onClick={returnPreviousPage}>
-      retour
-</button>
-
    <div className="d-flex justify-content-between align-items-center">
-    <div></div>
+       <button className="action-button detail" onClick={returnPreviousPage}>
+      retour
+      </button>
     <button className="action-button detail" onClick={createEventButton}>
     Créer 
     </button>
@@ -100,7 +131,7 @@ const EventListByIdCategory = () => {
               <button className="action-button detail" onClick={() => detailButtonClick(event.uuid)}>
               <i className="bi bi-search"></i>
               </button>
-              <button className="action-button remove">
+              <button className="action-button remove" onClick={() => deleteEvent(event.uuid)}>
                 
               <i className="bi bi-trash"></i>
               </button>
@@ -128,6 +159,9 @@ const EventListByIdCategory = () => {
             </div>
           </div>
            )}
+
+
+<ToastContainer />
 
     </div>
     
