@@ -19,13 +19,13 @@ const TicketList = () => {
 
 
   useEffect(() => {
-    fetchTickets(url);
+    fetchTickets();
   }, [page, size]);
 
-  const fetchTickets = async (url) => {
+  const fetchTickets = async () => {
     const token = localStorage.getItem('token');
     try {
-      const response = await axios.get(url, {
+      const response = await axios.get(`http://localhost:8080/users/tickets/me/${page}/${size}`, {
         headers: {
           'Authorization': `Bearer ${token}`
         }
@@ -133,7 +133,8 @@ const TicketList = () => {
       <div className="list-container">
         <div className="card-container">
           {tickets && tickets.map((ticket) => (  
-            <CardTicket key={ticket.uuid} ticket={ticket} />
+            <CardTicket key={ticket.uuid} ticket={ticket} handleTickets={fetchTickets} />
+            
           ))}
           <div className="pagination-controls">
             <div className="pagination-buttons centered-button">

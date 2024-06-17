@@ -42,7 +42,7 @@ const EventCreate = () => {
   const eventSubmit = (e) => {
     e.preventDefault();
     const token = localStorage.getItem('token');
-    axios.post(`http://localhost:8080/evenements`, 
+    axios.post(`http://localhost:8080/evenements/create`, 
       { name: name, totalSeats: totalSeats,
         categoryId: categoryId, dateEvent: dateEvent,
         hourBegin: hourBegin, hourEnding: hourEnding,

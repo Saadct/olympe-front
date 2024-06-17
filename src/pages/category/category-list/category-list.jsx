@@ -59,10 +59,29 @@ const CategoryList = () => {
   };
 
 
+
+  const deleteIfHasNotEvent = async (id) => {
+    const token = localStorage.getItem('token');
+    try {
+      const response = await axios.get(`http://localhost:8080/evenements/check-category/${id}`,{
+          headers: {
+            'Authorization': `Bearer ${token}`
+          }
+      });
+      await deleteCategory(id);
+
+
+    } catch (error) {
+      alert('La catégorie a des evenements fait attention veuillez supprimer les evenements lié avant de supprimer la categorie.');
+    }
+
+    };
+
+
   const deleteCategory = async (id) => {
     const token = localStorage.getItem('token');
     try {
-      await axios.delete(`http://localhost:8080/categories/${id}`, {
+      await axios.delete(`http://localhost:8080/categories/delete/${id}`, {
         headers: {
           'Authorization': `Bearer ${token}`
         }
@@ -125,7 +144,7 @@ const CategoryList = () => {
               <button className="action-button detail" onClick={() => detailButtonClick(category.uuid)}>
               <i className="bi bi-search"></i>
               </button>
-              <button className="action-button remove" onClick={() => deleteCategory(category.uuid)}>
+              <button className="action-button remove" onClick={() => deleteIfHasNotEvent(category.uuid)}>
                 
               <i className="bi bi-trash"></i>
               </button>

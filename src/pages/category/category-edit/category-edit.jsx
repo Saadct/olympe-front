@@ -43,7 +43,7 @@ const CategoryEdit = () => {
   const handleCategorySubmit = (e) => {
     e.preventDefault();
     const token = localStorage.getItem('token');
-    axios.put(`http://localhost:8080/categories/${id}`, 
+    axios.put(`http://localhost:8080/categories/update/${id}`, 
       { type: editableType, name: editableName}
       , {
         headers: {

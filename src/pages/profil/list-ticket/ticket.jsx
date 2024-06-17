@@ -3,7 +3,7 @@ import './ticket.css';
 import { Link, Navigate } from 'react-router-dom';
 import axios from 'axios';
 
-const CardTicket = ({ ticket }) => {
+const CardTicket = ({ ticket, handleTickets }) => {
   const currentDate = new Date();
   const eventDate = new Date(ticket?.evenement.dateEvent);
 
@@ -22,10 +22,11 @@ const CardTicket = ({ ticket }) => {
           'Authorization': `Bearer ${token}`
         }
       });
-      Navigate('/user/profil/tickets'); 
+      handleTickets();
         } catch (error) {
-      console.error('Erreur lors de la désinscription :', error);
-    }
+
+
+        }
   };
 
 

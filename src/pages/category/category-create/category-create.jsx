@@ -13,7 +13,7 @@ const CategoryCreate = () => {
   const categorySubmit = (e) => {
     e.preventDefault();
     const token = localStorage.getItem('token');
-    axios.post(`http://localhost:8080/categories`, 
+    axios.post(`http://localhost:8080/categories/create`, 
       { type: type, name: name}
       , {
         headers: {

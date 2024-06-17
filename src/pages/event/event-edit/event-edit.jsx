@@ -71,7 +71,7 @@ const EventEdit = () => {
   const eventSubmit = (e) => {
     e.preventDefault();
     const token = localStorage.getItem('token');
-    axios.put(`http://localhost:8080/evenements/${id}`, 
+    axios.put(`http://localhost:8080/evenements/update/${id}`, 
       { name: name,
         categoryId: categoryId, dateEvent: dateEvent, totalSeats: totalSeats,
         hourBegin: hourBegin, hourEnding: hourEnding,
