@@ -39,4 +39,4 @@ jobs:
           FTP_PASSWORD: ${{ secrets.FTPPASSWORDPROD }}
         run: |
           echo "Deploying to FTP server..."
-          ncftpput -u projet-efrei -p Wassila21! -S projet-efrei.alwaysdata.net /www ./build/test-file.txt
+          ncftpput -u projet-efrei -p Wassila21! projet-efrei.alwaysdata.net /www ./build/test-file.txt
