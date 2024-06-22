@@ -117,7 +117,7 @@ const TicketList = () => {
   return (
     <div className="centered-container">
       <h1>Mes tickets</h1>
-      <Link to="/user/profil" className="return-button">retour</Link> 
+      <Link to="/user/profil" className="action-button">retour</Link> 
 
       <div className="pagination-buttons centered-button">
         <button onClick={() => changeItemsPerPageTicketCard(0, size)} className="buttonPagination">
@@ -130,6 +130,12 @@ const TicketList = () => {
           plus disponible
         </button>
       </div>
+{tickets.length == 0 ?
+      <div className="alert alert-info text-center" style={{ width: "60%", margin: "20px auto" }}>
+        Aucun ticket trouvé.
+      </div>
+      : null
+}     
       <div className="list-container">
         <div className="card-container">
           {tickets && tickets.map((ticket) => (  

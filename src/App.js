@@ -30,6 +30,8 @@ import EventCreate from './pages/event/event-create/event-create';
 import EventEdit from './pages/event/event-edit/event-edit';
 import EventSubscriptionList from './pages/event/event-subscription-list/event-subscription-list';
 import UserCreate from './pages/users/user-create/user-create';
+import NotFound from './pages/404/404';
+import ProtectedRoute from './components/security/protectedRoad';
 
 function App() {
   const [userRole, setUserRole] = useState(localStorage.getItem('role'));
@@ -50,28 +52,44 @@ function App() {
       : (<NavbarLoggedOut /> )}
       <Routes>
         <Route path="/" element={<Home />} />
+     
         <Route path="/connection" element={<LoginPage setIsLoggedIn={setIsLoggedIn}/>} />
         <Route path="/inscription" element={<Signup/>} />
-        <Route path="/deconection" element={<LogOut setIsLoggedIn={setIsLoggedIn}/>} />
+        <Route path="/deconnexion" element={<LogOut setIsLoggedIn={setIsLoggedIn}/>} />
+     
         <Route path="/evenements" element={<EventListCard/>} />
         <Route path="/evenements/details/:eventId" element={<EventDetailPage/>} />
-        <Route path="/user/profil" element={<ViewProfil/>} />
-        <Route path="/user/profil/password" element={<ChangePasswordPage/>} />
+     
+        <Route path="/user/profil" element={
+          <ProtectedRoute>
+            <ViewProfil />
+          </ProtectedRoute>
+        } />
+        <Route path="/user/profil/password" element={
+          <ProtectedRoute>
+          <ChangePasswordPage/>
+          </ProtectedRoute>
+          } />
         <Route path="/user/profil/tickets" element={<TicketList />} />
+       
         <Route path="/conditions-utilisation" element={<CGU />} />
+       
+       
         <Route path="/admin/user-list" element={<UserList />} />
         <Route path="/admin/user-create" element={<UserCreate />} />
         <Route path="/admin/user-edit/:id" element={<UserEdit />} />
         <Route path="/admin/user-edit/ticket-list/:id" element={<UserTicketList />} />
+      
         <Route path="/admin/category-list" element={<CategoryList />} />
         <Route path="/admin/category-edit/:id" element={<CategoryEdit />} />
         <Route path="/admin/category-create" element={<CategoryCreate />} />
         <Route path="/admin/category-list-event/:id" element={<EventListByIdCategory/>} />
+     
         <Route path="/admin/event-list" element={<EventList/>} />
         <Route path="/admin/event-create" element={<EventCreate/>} />
         <Route path="/admin/event-edit/:id" element={<EventEdit/>} />
         <Route path="/admin/event-edit/subscription-list/:id" element={<EventSubscriptionList/>} />
-
+        <Route path="*" element={<Home/>} />
       </Routes>
       {<Footer/>}
       </div>

@@ -85,10 +85,6 @@ const UserList = () => {
               <button className="action-button detail" onClick={() => detailButtonClick(user.uuid)}>
               <i className="bi bi-search"></i>
               </button>
-              <button className="action-button remove">
-                
-              <i className="bi bi-trash"></i>
-              </button>
               </td>
             </tr>
           ))}

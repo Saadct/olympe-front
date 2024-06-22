@@ -2,8 +2,10 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate, useParams } from 'react-router-dom';
 import './ViewProfil.css'
+import useIsConnected from '../../../hooks/isConnectedHook';
 
 const ViewProfil = () => {
+  const isConnected = useIsConnected();
   const [fullname, setFullname] = useState('');
   const [email, setEmail] = useState('');
   const [mcp, setMcp] = useState('');
@@ -20,6 +22,9 @@ const ViewProfil = () => {
 
 
   useEffect(() => {
+    if (!isConnected) {
+   //   navigate('/deconnexion'); 
+    }
     const token = localStorage.getItem('token');
 
     axios.get('http://localhost:8080/users/me', {

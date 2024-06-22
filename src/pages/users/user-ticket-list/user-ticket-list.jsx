@@ -97,9 +97,12 @@ const UserTicketList = () => {
           ))}
         </tbody>
       </table>
-      )}
+       )}
       </div>
-      <div className="pagination-controls">
+
+      {tickets.length > 0 ?(
+        
+        <div className="pagination-controls">
             <div className="pagination-buttons centered-button">
               <div>
                 {currentPage + 1} / {totalPages} 
@@ -114,7 +117,11 @@ const UserTicketList = () => {
               </button>
             </div>
           </div>
+        )  :
+        null
+}
     </div>
+ 
     
   );
 }

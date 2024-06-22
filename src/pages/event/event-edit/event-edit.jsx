@@ -212,21 +212,21 @@ const EventEdit = () => {
       </div>
         : hourEnding }</h5>
 
-
     <h5>Courte déscription</h5>
-    <h5 onClick={handleEditEvent}>{isEditingEvent ? 
+    <p style={{ overflowWrap: "break-word" }} onClick={handleEditEvent} >{isEditingEvent ?
       <textarea type="textarea" name="shortDescription" onChange={handleEventChange} value={shortDescription}
-        style={{ width: "80%", minHeight: "100px", resize: "vertical" }}
+      style={{ width: "100%", minHeight: "100px", resize: "vertical" }}
       className="input-edit"/> 
-      : shortDescription }</h5>
+      : shortDescription }</p>
+
 
 
     <h5>Longue déscription</h5>
-    <h5 onClick={handleEditEvent}>{isEditingEvent ? 
+    <p onClick={handleEditEvent} style={{ overflowWrap: "break-word" }}>{isEditingEvent ? 
       <textarea type="textarea" name="longDescription" onChange={handleEventChange} value={longDescription}
         style={{ width: "100%", minHeight: "200px", resize: "vertical" }}
       className="input-edit"/> 
-            : longDescription }</h5>
+            : longDescription }</p>
 
 
     {isEditingEvent && (

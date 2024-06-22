@@ -97,7 +97,7 @@ const EventListByIdCategory = () => {
 
   return (
     <div className="container">
-    <h1 className="mb-0">Liste des Evenements</h1>
+    <h1 className="mb-0">Liste des Evenements pour la categorie</h1>
    <div className="d-flex justify-content-between align-items-center">
        <button className="action-button detail" onClick={returnPreviousPage}>
       retour

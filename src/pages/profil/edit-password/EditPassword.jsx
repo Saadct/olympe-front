@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const ChangePasswordPage = () => {
   const [oldPassword, setOldPassword] = useState('');
@@ -18,17 +19,15 @@ const ChangePasswordPage = () => {
     }
 
     try {
-        const token = localStorage.getItem('token');
+      const token = localStorage.getItem('token');
       const response = await axios.patch('http://localhost:8080/auth/updatePassword', {
-        oldPassword: oldPassword,
-        newPassword: newPassword
-      },
-    {
+        oldPassword,
+        newPassword
+      }, {
         headers: {
-            'Authorization': `Bearer ${token}`
-          }
-
-    });
+          'Authorization': `Bearer ${token}`
+        }
+      });
 
       setSuccessMessage(response.data.message);
       setErrorMessage('');
@@ -43,45 +42,56 @@ const ChangePasswordPage = () => {
   };
 
   return (
-    <div>
-      <h2>Changer le mot de passe</h2>
-      <Link to="/user/profil" className="btn btn-primary">retour</Link> 
+    <div className="container mt-5">
+      <div className="row justify-content-center">
+        <div className="col-md-6">
+          <div className="card">
+            <div className="card-body">
+              <h2 className="card-title text-center">Changer le mot de passe</h2>
+              <Link to="/user/profil" className="action-button mb-5">Retour</Link> 
 
-      <form onSubmit={handleChangePassword}>
-        <div>
-          <label htmlFor="oldPassword">Ancien mot de passe:</label>
-          <input
-            type="password"
-            id="oldPassword"
-            value={oldPassword}
-            onChange={(e) => setOldPassword(e.target.value)}
-            required
-          />
+              <form onSubmit={handleChangePassword}>
+                <div className="form-group mt-3">
+                  <label>Ancien mot de passe:</label>
+                  <input
+                    type="password"
+                    className="form-control"
+                    id="oldPassword"
+                    value={oldPassword}
+                    onChange={(e) => setOldPassword(e.target.value)}
+                    required
+                  />
+                </div>
+                <div className="form-group">
+                  <label>Nouveau mot de passe:</label>
+                  <input
+                    type="password"
+                    className="form-control"
+                    id="newPassword"
+                    value={newPassword}
+                    onChange={(e) => setNewPassword(e.target.value)}
+                    required
+                  />
+                </div>
+                <div className="form-group">
+                  <label>Confirmer le nouveau mot de passe:</label>
+                  <input
+                    type="password"
+                    className="form-control"
+                    id="confirmPassword"
+                    value={confirmPassword}
+                    onChange={(e) => setConfirmPassword(e.target.value)}
+                    required
+                  />
+                </div>
+                {errorMessage && <div className="alert alert-danger">{errorMessage}</div>}
+                {successMessage && <div className="alert alert-success">{successMessage}</div>}
+                <button type="submit" className="action-button">Changer le mot de passe</button>
+              </form>
+            </div>
+          </div>
         </div>
-        <div>
-          <label htmlFor="newPassword">Nouveau mot de passe:</label>
-          <input
-            type="password"
-            id="newPassword"
-            value={newPassword}
-            onChange={(e) => setNewPassword(e.target.value)}
-            required
-          />
-        </div>
-        <div>
-          <label htmlFor="confirmPassword">Confirmer le nouveau mot de passe:</label>
-          <input
-            type="password"
-            id="confirmPassword"
-            value={confirmPassword}
-            onChange={(e) => setConfirmPassword(e.target.value)}
-            required
-          />
-        </div>
-        {errorMessage && <div style={{ color: 'red' }}>{errorMessage}</div>}
-        {successMessage && <div style={{ color: 'green' }}>{successMessage}</div>}
-        <button type="submit">Changer le mot de passe</button>
-      </form>
+      </div>
     </div>
   );
 };

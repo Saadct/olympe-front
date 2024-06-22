@@ -16,7 +16,7 @@ const NavbarLoggedAdminIn = () => {
           <Nav.Link href="/admin/event-list">évenements</Nav.Link>
         </Nav>
         <Nav className="me-auto">
-          <Nav.Link href="/deconection">Déconnection</Nav.Link>
+          <Nav.Link href="/deconnexion">Déconnection</Nav.Link>
         </Nav>
       </Navbar.Collapse>
     </Container>

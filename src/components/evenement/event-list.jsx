@@ -26,13 +26,10 @@ const EventListCard = () => {
         const response = await axios.get(`http://localhost:8080/evenements/paginated/${page}/${size}`);
         const eventData = response.data[0]; 
         const totalPage = response.data[1]; 
-        console.log("total page" + totalPage);
         setTotalPages(totalPage)
         setEvents(eventData);
-        setLoading(false);
       } catch (err) {
         setError(err);
-        setLoading(false);
       }
     };
 
@@ -55,7 +52,6 @@ const EventListCard = () => {
 
   const handleCategoryClick = async (uuid, page, size) => {
     setCurrentPage(0);
-    setLoading(true);
     setCategory(uuid);
     setFilter(true);
     console.log(categories);
@@ -67,10 +63,8 @@ const EventListCard = () => {
       const totalPage = response.data[1]; 
       setTotalPages(totalPage);
       setEvents(eventData);
-      setLoading(false);
     } catch (err) {
       setError(err);
-      setLoading(false);
     }
   };
 
@@ -155,17 +149,12 @@ const EventListCard = () => {
       setTotalPages(totalPage)
       setEvents(eventData);
       setItemsPerPage(number);
-      setLoading(false);
     } catch (err) {
       setError(err);
-      setLoading(false);
     }
   };
   
-  
 
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error loading events: {error.message}</p>;
 
   return (
     <div>

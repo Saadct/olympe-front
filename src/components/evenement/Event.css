@@ -8,6 +8,14 @@ gap: 16px;
 }
 
 
+
+.event-card:hover {
+transform: translateY(-5px);
+box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+
+}
+  
+
 .event-card {
 background-color: #ffffff;
 border: 1px solid #dddddd;
@@ -15,6 +23,8 @@ border-radius: 8px;
 box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 padding: 20px;
 margin-bottom: 20px;
+transition: transform 0.3s ease-in-out;
+
 }
 
 .event-card h2 {
@@ -99,12 +109,12 @@ flex: 0 0 auto;
 }
 
 .buttonPagination:hover, .buttonItem:hover {
-    background-color: #87449d;
+    background-color: #9f7cab;
     transform: scale(1.05);
 }
 
 .category-button:hover, .nav-button:hover {
-background-color: #ef06ccf4;
+background-color: #be7fb4f4;
 transform: scale(1.05);
 }
 
@@ -112,6 +122,14 @@ transform: scale(1.05);
 background-color: #ccc;
 cursor: not-allowed;
 transform: none;
+}
+.view-details-button{
+    border-radius: 25px;
+    background-color: transparent;
+    color: black
+}
+.view-details-button:hover{
+    color: white
 }
 
 @media (max-width: 600px) {

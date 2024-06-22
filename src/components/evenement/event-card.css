@@ -1,0 +1,59 @@
+.event-card {
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    margin-bottom: 20px;
+  }
+  
+  .event-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+  }
+  
+  .event-name {
+    font-size: 1.5rem;
+    margin: 0;
+  }
+  
+  .event-category {
+    font-style: italic;
+    color: #666;
+  }
+  
+  .event-card-body {
+    margin-bottom: 10px;
+  }
+  
+  .event-time {
+    margin: 5px 0;
+  }
+  
+  .event-seats {
+    font-weight: bold;
+  }
+  
+  .view-details-button {
+    display: inline-block;
+    background-color: #007bff;
+    color: #fff;
+    text-decoration: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+  }
+  
+  .view-details-button:hover {
+    background-color: #0056b3;
+  }
+  
+  .event-description {
+    margin-top: 10px;
+    font-style: italic;
+    color: #555;
+  }
+  

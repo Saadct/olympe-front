@@ -15,7 +15,7 @@ const NavbarLoggedUserIn = () => {
           <Nav.Link href="/user/profil">profil</Nav.Link>
         </Nav>
         <Nav className="me-auto">
-              <Nav.Link href="/deconection">deconection</Nav.Link>
+              <Nav.Link href="/deconnexion">deconection</Nav.Link>
         </Nav>
       </Navbar.Collapse>
     </Container>
