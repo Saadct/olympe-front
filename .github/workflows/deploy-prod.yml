@@ -1,4 +1,4 @@
-name: Prod - Deploy APP to FTP
+name: Prod - Deploy APP to FTP 
 
 on:
   push:
