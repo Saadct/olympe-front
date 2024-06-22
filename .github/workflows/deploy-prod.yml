@@ -1,28 +1,34 @@
-name: Check FTP Connection
+name: Prod - Deploy APP to FTP 
 
 on:
   push:
     branches:
-      - main
+      - prod
 
 jobs:
-  check_ftp_connection:
+  deploy:
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
+      
+      - name: Install dependencies
+        run: npm install
 
-      - name: Install ncftp
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y ncftp
+      - name: Build application
+        run: npm run build
 
-      - name: Check FTP Connection
-        env:
-          FTP_SERVER: ftp-projet-efrei.alwaysdata.net
-          FTP_USERNAME: projet-efrei
-          FTP_PASSWORD: ${{ secrets.FTPPASSWORDPROD }}
+      - name: Check build directory
         run: |
-          echo "Checking FTP connection..."
-          ncftp -u $FTP_USERNAME -p $FTP_PASSWORD $FTP_SERVER
+          ls -l ./build
+          git status ./build
+
+      - name: Deploy to FTP
+        uses: SamKirkland/FTP-Deploy-Action@4.0.0
+        with:
+          server: ${{ secrets.FTPSERVERPROD }}
+          username: ${{ secrets.FTPUSERNAMEPROD }}
+          password: ${{ secrets.FTPPASSWORDPROD }}
+          local-dir: ./build/
+          server-dir: /www/
