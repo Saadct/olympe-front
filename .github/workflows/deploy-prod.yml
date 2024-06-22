@@ -3,7 +3,7 @@ name: Prod - Deploy APP to FTP
 on:
   push:
     branches:
-      - prod
+      - main
 
 jobs:
   deploy:
