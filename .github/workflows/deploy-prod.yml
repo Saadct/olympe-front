@@ -3,7 +3,7 @@ name: Prod - Deploy APP to FTP
 on:
   push:
     branches:
-      - main 
+      - main
 
 jobs:
   deploy:
@@ -12,7 +12,7 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
-      
+
       - name: Install Node.js
         uses: actions/setup-node@v2
         with:
@@ -27,11 +27,16 @@ jobs:
       - name: Check build directory
         run: ls -l ./build
 
+      - name: Install lftp
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y lftp
+
       - name: FTP Deploy
-        uses: sebastianpopp/ftp-action@releases/v2
-        with:
-          ftp-server: projet-efrei.alwaysdata.net
-          ftp-username: projet-efrei
-          ftp-password: ${{ secrets.FTPPASSWORDPROD }}
-          local-dir: ./build
-          remote-dir: /www
+        env:
+          FTP_SERVER: projet-efrei.alwaysdata.net
+          FTP_USERNAME: projet-efrei
+          FTP_PASSWORD: ${{ secrets.FTPPASSWORDPROD }}
+        run: |
+          echo "Deploying to FTP server..."
+          lftp -c "set ftp:ssl-allow no; open -u $FTP_USERNAME,$FTP_PASSWORD $FTP_SERVER; mirror -R ./build /www/"
