@@ -25,9 +25,11 @@ jobs:
           git status ./build
 
       - name: Deploy to FTP
-        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.2
         with:
           server: projet-efrei.alwaysdata.net
           username: projet-efrei
           password: Wassila21!
           local-dir: ./build/
+          server-dir: /www/
+
