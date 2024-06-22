@@ -30,7 +30,6 @@ import EventCreate from './pages/event/event-create/event-create';
 import EventEdit from './pages/event/event-edit/event-edit';
 import EventSubscriptionList from './pages/event/event-subscription-list/event-subscription-list';
 import UserCreate from './pages/users/user-create/user-create';
-import NotFound from './pages/404/404';
 import ProtectedRoute from './components/security/protectedRoad';
 
 function App() {
@@ -89,7 +88,7 @@ function App() {
         <Route path="/admin/event-create" element={<EventCreate/>} />
         <Route path="/admin/event-edit/:id" element={<EventEdit/>} />
         <Route path="/admin/event-edit/subscription-list/:id" element={<EventSubscriptionList/>} />
-        <Route path="*" element={<NotFound/>} />
+        <Route path="*" element={<Home/>} />
       </Routes>
       {<Footer/>}
       </div>
