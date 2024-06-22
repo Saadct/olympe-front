@@ -28,7 +28,7 @@ jobs:
         run: ls -l ./build
 
       - name: FTP Deploy
-        uses: sebastianpopp/ftp-action@v3
+        uses: sebastianpopp/ftp-action@releases/v2
         with:
           ftp-server: projet-efrei.alwaysdata.net
           ftp-username: projet-efrei
