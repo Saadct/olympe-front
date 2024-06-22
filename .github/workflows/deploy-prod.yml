@@ -1,4 +1,4 @@
-name: Prod - Deploy APP to FTP
+name: Check FTP Connection
 
 on:
   push:
@@ -6,37 +6,23 @@ on:
       - main
 
 jobs:
-  deploy:
+  check_ftp_connection:
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
 
-      - name: Install Node.js
-        uses: actions/setup-node@v2
-        with:
-          node-version: '14'
-
       - name: Install ncftp
         run: |
           sudo apt-get update
           sudo apt-get install -y ncftp
 
-      - name: Install dependencies
-        run: npm install
-
-      - name: Build application
-        run: npm run build
-
-      - name: Check build directory
-        run: ls -l ./build
-
-      - name: FTP Deploy with ncftpput
+      - name: Check FTP Connection
         env:
           FTP_SERVER: projet-efrei.alwaysdata.net
           FTP_USERNAME: projet-efrei
           FTP_PASSWORD: ${{ secrets.FTPPASSWORDPROD }}
         run: |
-          echo "Deploying to FTP server..."
-          ncftpput -u projet-efrei -p Wassila21! projet-efrei.alwaysdata.net /www ./build/test-file.txt
+          echo "Checking FTP connection..."
+          ncftp -u $FTP_USERNAME -p $FTP_PASSWORD $FTP_SERVER
