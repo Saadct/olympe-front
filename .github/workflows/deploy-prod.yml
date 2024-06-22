@@ -1,0 +1,34 @@
+name: Prod - Deploy APP to FTP 
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build application
+        run: npm run build
+
+      - name: Check build directory
+        run: |
+          ls -l ./build
+          git status ./build
+
+      - name: Deploy to FTP
+        uses: SamKirkland/FTP-Deploy-Action@4.0.0
+        with:
+          server: ${{ secrets.FTPPROD }}
+          username: ${{ secrets.FTPUSERNAMEPREPROD }}
+          password: ${{ secrets.FTPPASSWORDPREPROD }}
+          local-dir: ./build/
+          server-dir: /www/
