@@ -32,6 +32,6 @@ jobs:
         with:
           ftp-server: projet-efrei.alwaysdata.net
           ftp-username: projet-efrei
-          ftp-password: ${{ secrets.FTP_PASSWORD }}
+          ftp-password: ${{ secrets.FTPPASSWORDPROD }}
           local-dir: ./build
           remote-dir: /www
