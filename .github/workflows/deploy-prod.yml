@@ -1,4 +1,4 @@
-name: Check FTP Connection
+name: Test FTP Connection
 
 on:
   push:
@@ -6,23 +6,22 @@ on:
       - main
 
 jobs:
-  check_ftp_connection:
+  test_ftp_connection:
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
 
-      - name: Install ncftp
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y ncftp
-
-      - name: Check FTP Connection
+      - name: Test FTP Connection
         env:
           FTP_SERVER: projet-efrei.alwaysdata.net
           FTP_USERNAME: projet-efrei
           FTP_PASSWORD: ${{ secrets.FTPPASSWORDPROD }}
         run: |
-          echo "Checking FTP connection..."
-          ncftp -u projet-efrei -p Wassila21! projet-efrei.alwaysdata.net
+          echo "Testing FTP connection..."
+          ftp -n $FTP_SERVER <<EOF
+          quote USER $FTP_USERNAME
+          quote PASS $FTP_PASSWORD
+          quit
+          EOF
