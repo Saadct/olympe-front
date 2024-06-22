@@ -18,6 +18,11 @@ jobs:
         with:
           node-version: '14'
 
+      - name: Install ncftp
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y ncftp
+
       - name: Install dependencies
         run: npm install
 
@@ -27,11 +32,6 @@ jobs:
       - name: Check build directory
         run: ls -l ./build
 
-      - name: Install lftp
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y lftp
-
       - name: FTP Deploy with ncftpput
         env:
           FTP_SERVER: projet-efrei.alwaysdata.net
@@ -39,4 +39,4 @@ jobs:
           FTP_PASSWORD: ${{ secrets.FTPPASSWORDPROD }}
         run: |
           echo "Deploying to FTP server..."
-          ncftpput -u $FTP_USERNAME -p $FTP_PASSWORD $FTP_SERVER /www ./build/*
+          ncftpput -u $FTP_USERNAME -p $FTP_PASSWORD $FTP_SERVER /www ./build/test-file.txt
