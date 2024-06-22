@@ -31,4 +31,3 @@ jobs:
           username: projet-efrei
           password: Wassila21!
           local-dir: ./build/
-          server-dir: /www/
