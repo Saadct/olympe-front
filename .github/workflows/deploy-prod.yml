@@ -27,8 +27,8 @@ jobs:
       - name: Deploy to FTP
         uses: SamKirkland/FTP-Deploy-Action@4.0.0
         with:
-          server: ${{ secrets.FTPSERVERPROD }}
-          username: ${{ secrets.FTPUSERNAMEPROD }}
-          password: ${{ secrets.FTPPASSWORDPROD }}
+          server: projet-efrei.alwaysdata.net
+          username: projet-efrei
+          password: Wassila21!
           local-dir: ./build/
           server-dir: /www/
