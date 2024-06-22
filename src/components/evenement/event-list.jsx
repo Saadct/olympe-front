@@ -7,8 +7,6 @@ const EventListCard = () => {
   const [events, setEvents] = useState([]);
 
   const [categories, setCategories] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
 
   const [startIndexCat, setStartIndexCat] = useState(0);
   const [itemsPerPageCat, setItemsPerPageCat] = useState(4); 
@@ -20,6 +18,7 @@ const EventListCard = () => {
   const [isFiltered, setFilter] = useState(false) 
 
 
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => {
     const fetchEventsPaginated = async (page, size) => {
       try {
@@ -29,12 +28,12 @@ const EventListCard = () => {
         setTotalPages(totalPage)
         setEvents(eventData);
       } catch (err) {
-        setError(err);
+        console.log(err);
       }
     };
 
     fetchEventsPaginated(currentPage, itemsPerPage);
-  }, []);
+  }, [currentPage, itemsPerPage]);
 
   useEffect(() => {
     const fetchCategories = async () => {
@@ -64,7 +63,7 @@ const EventListCard = () => {
       setTotalPages(totalPage);
       setEvents(eventData);
     } catch (err) {
-      setError(err);
+      console.log(err);
     }
   };
 
@@ -150,7 +149,7 @@ const EventListCard = () => {
       setEvents(eventData);
       setItemsPerPage(number);
     } catch (err) {
-      setError(err);
+      console.log(err);
     }
   };
   

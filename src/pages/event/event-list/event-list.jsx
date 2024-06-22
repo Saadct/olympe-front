@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useNavigate, useParams } from 'react-router-dom'; 
+import { useNavigate } from 'react-router-dom'; 
 import { ToastContainer, toast } from 'react-toastify';
 
 
@@ -11,7 +11,6 @@ const EventList = () => {
 
   const [currentPage, setCurrentPage] = useState(0);
   const [totalPages, setTotalPages] = useState(0);
-  const{ id } = useParams("id");
 
   const navigate = useNavigate(); 
 
@@ -34,6 +33,8 @@ const EventList = () => {
 
 
     useEffect(() => {
+      setPage(page);
+      setSize(size);
         fetchEvents(page, size);
     }, [page, size]);
 
@@ -60,7 +61,7 @@ const EventList = () => {
   };
 
   const returnPreviousPage = () => {
-    navigate('/admin/category-list');
+    navigate('/admin/event-list');
   };
 
 
@@ -103,13 +104,16 @@ const EventList = () => {
 
    <div className="d-flex justify-content-between align-items-center mt-3">
    <div>
+   <button className="action-button detail" onClick={returnPreviousPage}>
+    Retour 
+    </button>
 </div>
     <button className="action-button detail" onClick={createEventButton}>
     Créer 
     </button>
   </div>
       <div className="table-responsive">
-      {events.length == 0 ? (
+      {events.length === 0 ? (
         <div className="alert alert-info text-center">
           Aucun evenement trouvé.
         </div>

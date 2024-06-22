@@ -33,6 +33,8 @@ const CategoryList = () => {
 
 
     useEffect(() => {
+      setPage(page);
+      setSize(size);
       fetchCategories(page, size);
     }, [page, size]);
 
@@ -63,7 +65,7 @@ const CategoryList = () => {
   const deleteIfHasNotEvent = async (id) => {
     const token = localStorage.getItem('token');
     try {
-      const response = await axios.get(`http://localhost:8080/evenements/check-category/${id}`,{
+       await axios.get(`http://localhost:8080/evenements/check-category/${id}`,{
           headers: {
             'Authorization': `Bearer ${token}`
           }
@@ -122,7 +124,7 @@ const CategoryList = () => {
     </button>
   </div>
       <div className="table-responsive">
-      {categories.length == 0 ? (
+      {categories.length === 0 ? (
         <div className="alert alert-info text-center">
           Aucun evenement trouvé.
         </div>

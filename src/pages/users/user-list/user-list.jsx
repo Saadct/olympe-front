@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import "./UserList.css"
-import { Link, useNavigate } from 'react-router-dom'; // Importez Link depuis react-router-dom si vous utilisez des routes
+import { useNavigate } from 'react-router-dom'; 
 
 const UserList = () => {
   const [users, setUsers] = useState([]);
   const [page, setPage] = useState(0);
-  const [size, setSize] = useState(2);
+  const [size, setSize] = useState(10);
 
   const [totalPages, setTotalPages] = useState(0);
 
@@ -32,6 +32,7 @@ const UserList = () => {
   };
 
     useEffect(() => {
+      setSize(size);
       fetchUsers(page, size);
     }, [page, size]);
 

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
 import { useNavigate, useParams } from 'react-router-dom'; 
 import { ToastContainer, toast } from 'react-toastify';
@@ -9,13 +9,12 @@ const EventSubscriptionList = () => {
   const [page, setPage] = useState(0);
   const [size, setSize] = useState(20);
 
-  const [currentPage, setCurrentPage] = useState(0);
   const [totalPages, setTotalPages] = useState(0);
   const{ id } = useParams("id");
 
   const navigate = useNavigate(); 
 
-  const fetchEventSubscriptions = async (page, size) => {
+  const fetchEventSubscriptions = useCallback(async () => {
     const token = localStorage.getItem('token');
     try {
       const response = await axios.get(`http://localhost:8080/tickets/paginated/${id}/${page}/${size}`,{
@@ -30,7 +29,7 @@ const EventSubscriptionList = () => {
     } catch (error) {
       console.error('Erreur lors de la récupération des inscriptions:', error);
     }
-  };
+  }, [id, page, size]);
 
   
   const handleUnsubscribe = async (uuid) => {
@@ -69,20 +68,21 @@ const EventSubscriptionList = () => {
   };
 
 
-
+   // eslint-disable-next-line react-hooks/exhaustive-deps
     useEffect(() => {
-      fetchEventSubscriptions(page, size);
-    }, [page, size]);
+      setSize(size);
+      fetchEventSubscriptions();
+    }, [id, page, size, fetchEventSubscriptions]);
 
   const nextPage = async () => {
     if (page < totalPages - 1) { 
-      setCurrentPage(page + 1);
+      setPage(page + 1);
     }
   };
   
   const previousPage = async () => {
     if (page > 0) {
-      setCurrentPage(page - 1);
+      setPage(page - 1);
     }
   };
 
@@ -98,7 +98,7 @@ const EventSubscriptionList = () => {
     navigate(`/admin/event-edit/${id}`);
   };
 
-
+/*
   const deleteEvent = async (id) => {
     const token = localStorage.getItem('token');
     try {
@@ -129,6 +129,7 @@ const EventSubscriptionList = () => {
       });
     }
   };
+  */
 
   return (
     <div className="container">
@@ -143,7 +144,7 @@ const EventSubscriptionList = () => {
     </button>
   </div>
       <div className="table-responsive">
-      {eventSubscriptions.length == 0 ? (
+      {eventSubscriptions.length === 0 ? (
         <div className="alert alert-info text-center">
           Aucune inscription trouver trouvé.
         </div>

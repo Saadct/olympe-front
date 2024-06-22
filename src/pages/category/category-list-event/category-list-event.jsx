@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
 import { useNavigate, useParams } from 'react-router-dom'; 
 import { ToastContainer, toast } from 'react-toastify';
@@ -9,13 +9,13 @@ const EventListByIdCategory = () => {
   const [page, setPage] = useState(0);
   const [size, setSize] = useState(20);
 
-  const [currentPage, setCurrentPage] = useState(0);
   const [totalPages, setTotalPages] = useState(0);
   const{ id } = useParams("id");
 
   const navigate = useNavigate(); 
 
-  const fetchEvents = async (page, size) => {
+  
+  const fetchEvents =  useCallback(async () => {
     const token = localStorage.getItem('token');
     try {
       const response = await axios.get(`http://localhost:8080/evenements/paginatedByCategory/${page}/${size}/${id}`,{
@@ -30,7 +30,7 @@ const EventListByIdCategory = () => {
     } catch (error) {
       console.error('Erreur lors de la récupération des categories:', error);
     }
-  };
+  }, [page, size, id]);
 
 
   const deleteEvent = async (id) => {
@@ -65,21 +65,23 @@ const EventListByIdCategory = () => {
     }
   };
 
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     useEffect(() => {
-        fetchEvents(page, size);
-    }, [page, size]);
+      fetchEvents(page, size);
+    }, [page, size, fetchEvents]);
 
   const nextPage = async () => {
-    if (currentPage < totalPages - 1) { 
-      await fetchEvents(currentPage + 1, size);
-      setCurrentPage(currentPage + 1);
+    setSize(size);
+    if (page < totalPages - 1) { 
+      await fetchEvents(page + 1, size);
+      setPage(page + 1);
     }
   };
   
   const previousPage = async () => {
-    if (currentPage > 0) {
-      await fetchEvents(currentPage - 1, size);  
-      setCurrentPage(currentPage - 1);
+    if (page > 0) {
+      await fetchEvents(page - 1, size);  
+      setPage(page - 1);
     }
   };
 
@@ -107,7 +109,7 @@ const EventListByIdCategory = () => {
     </button>
   </div>
       <div className="table-responsive">
-      {events.length == 0 ? (
+      {events.length === 0 ? (
         <div className="alert alert-info text-center">
           Aucun evenement trouvé.
         </div>
@@ -146,14 +148,14 @@ const EventListByIdCategory = () => {
       <div className="pagination-controls">
             <div className="pagination-buttons centered-button">
         <div className="pagination-info">
-          {currentPage + 1} / {totalPages}
+          {page + 1} / {totalPages}
         </div>
             </div>
             <div className="pagination-buttons centered-button">
-              <button onClick={previousPage} className="buttonPagination" disabled={currentPage === 0}>
+              <button onClick={previousPage} className="buttonPagination" disabled={page === 0}>
                 &lt;
               </button>
-              <button onClick={nextPage} className="buttonPagination" disabled={currentPage === totalPages}>
+              <button onClick={nextPage} className="buttonPagination" disabled={page === totalPages}>
                 &gt;
               </button>
             </div>

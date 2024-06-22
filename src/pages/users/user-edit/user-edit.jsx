@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
 import { useNavigate, useParams } from 'react-router-dom';
 import './user-edit.css'
@@ -15,7 +15,7 @@ const UserEdit = () => {
   const navigate = useNavigate(); 
   const { id } = useParams(); 
 
-  const fetchUser = async () =>{
+  const fetchUser = useCallback(async () =>{
     const token = localStorage.getItem('token');
     axios.get(`http://localhost:8080/users/informations/${id}`, {
       headers: {
@@ -33,7 +33,7 @@ const UserEdit = () => {
     .catch(error => {
       console.error('Erreur lors de la récupération des informations de profil:', error);
     });
-  }
+  }, [id])
 
   const handleRole = async () => {
     const token = localStorage.getItem('token');
@@ -80,7 +80,7 @@ const UserEdit = () => {
 
   useEffect(() => {
     fetchUser();
-  }, []);
+  }, [id, fetchUser]);
 
   return (
     <div>

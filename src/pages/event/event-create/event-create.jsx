@@ -1,13 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import "./event-create.css"
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import DatePicker from 'react-datepicker';
 
 const EventCreate = () => {
-  const [type, setType] = useState('');
   const [name, setName] = useState('');
   const [totalSeats, setTotalSeats] = useState(0);
   const [dateEvent, setDateEvent] = useState('');
@@ -82,14 +80,6 @@ const EventCreate = () => {
       });
   };
 
-
-  const handlePasswordChange = () => {
-    navigate('/user/profil/password');
-  };
-
-  const handleTickets = () => {
-    navigate('/user/profil/tickets');
-  };
 
   const returnPreviousPage = () => {
     navigate('/admin/event-list');

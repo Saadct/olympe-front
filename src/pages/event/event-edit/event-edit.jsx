@@ -1,11 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
 import { useNavigate, useParams } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 const EventEdit = () => {
-  const [type, setType] = useState('');
   const [name, setName] = useState('');
   const [availableSeats, setAvailableSeats] = useState('');
 
@@ -16,8 +15,6 @@ const EventEdit = () => {
   const [shortDescription, setShortDescription] = useState('');
   const { id } = useParams();
   const [longDescription, setLongDescription] = useState('');
-  const [event, setEvent] = useState({});
-
   const [categories, setCategories] = useState([]);
   const navigate = useNavigate(); 
   const [categoryId, setCategoryId] = useState('');
@@ -39,7 +36,7 @@ const EventEdit = () => {
     }
   };
 
-  const fetchEvent = async () => {
+  const fetchEvent = useCallback(async () => {
     const token = localStorage.getItem('token');
     try {
       const response = await axios.get(`http://localhost:8080/evenements/details/${id}`,{
@@ -47,7 +44,6 @@ const EventEdit = () => {
             'Authorization': `Bearer ${token}`
           }
       });
-      setEvent(response.data);
       setName(response.data.name);
       setTotalSeats(response.data.totalSeats);
       setAvailableSeats(response.data.availableSeats);
@@ -62,7 +58,7 @@ const EventEdit = () => {
     } catch (error) {
       console.error('Erreur lors de la récupération de l%évènement:', error);
     }
-  };
+  },[id]);
 
 
 
@@ -155,10 +151,12 @@ const EventEdit = () => {
     setIsEditingEvent(true);
   };
 
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => {
     fetchEvent();
     fetchCategories(); 
-  }, []); 
+  }, [id, fetchEvent]); 
+
 
   return (
     <div className="Event-create-page">

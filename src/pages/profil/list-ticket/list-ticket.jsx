@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
-import './list-ticket.css'; // Importer le fichier CSS
+import './list-ticket.css'; 
 import CardTicket from './ticket';
 import { Link } from 'react-router-dom';
 
@@ -13,16 +13,13 @@ const TicketList = () => {
   const [totalPages, setTotalPages] = useState(0);
 
   const [itemsPerPage, setItemsPerPage] = useState(12); 
-  const [url, setUrl] = useState(`http://localhost:8080/users/tickets/me/${page}/${size}`); 
   const [state, setState] = useState('');
   const [isFiltered, setFilter] = useState(false)
 
 
-  useEffect(() => {
-    fetchTickets();
-  }, [page, size]);
+  
 
-  const fetchTickets = async () => {
+  const fetchTickets = useCallback(async () => {
     const token = localStorage.getItem('token');
     try {
       const response = await axios.get(`http://localhost:8080/users/tickets/me/${page}/${size}`, {
@@ -30,20 +27,26 @@ const TicketList = () => {
           'Authorization': `Bearer ${token}`
         }
       });
-      const tickets = response.data[0]; 
-      const totalPage = response.data[1]; 
-      setTickets(tickets);
+      const ticketsData = response.data[0];
+      const totalPage = response.data[1];
+      setTickets(ticketsData);
       setCurrentPage(page);
       setTotalPages(totalPage);
     } catch (error) {
       console.error("Erreur lors de la récupération des tickets :", error);
     }
-  };
+  }, [page, size]); 
 
+
+  useEffect(() => {
+    setPage(page);
+    setSize(size);
+    fetchTickets();
+  }, [page, size, fetchTickets]);
 
   const nextPage = async () => {
     if (currentPage < totalPages - 1) { 
-      if(isFiltered == false){
+      if(isFiltered === false){
         await changeItemsPerPageTicketCard(currentPage + 1, itemsPerPage);
       }else{
         await handleTicketStateClick(state, currentPage + 1, itemsPerPage);
@@ -130,7 +133,7 @@ const TicketList = () => {
           plus disponible
         </button>
       </div>
-{tickets.length == 0 ?
+{tickets.length === 0 ?
       <div className="alert alert-info text-center" style={{ width: "60%", margin: "20px auto" }}>
         Aucun ticket trouvé.
       </div>
