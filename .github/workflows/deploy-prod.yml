@@ -25,7 +25,7 @@ jobs:
           git status ./build
 
       - name: Deploy to FTP
-        uses: SamKirkland/FTP-Sync@5.0.0
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.4
         with:
           server: projet-efrei.alwaysdata.net
           username: projet-efrei
