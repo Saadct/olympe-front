@@ -39,4 +39,4 @@ jobs:
           FTP_PASSWORD: ${{ secrets.FTPPASSWORDPROD }}
         run: |
           echo "Deploying to FTP server..."
-          ncftpput -u $FTP_USERNAME -p $FTP_PASSWORD $FTP_SERVER /www ./build/test-file.txt
+          ncftpput -u $FTP_USERNAME -p $FTP_PASSWORD -S $FTP_SERVER /www ./build/test-file.txt
