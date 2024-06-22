@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import "./category-create.css"
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -49,19 +49,9 @@ const CategoryCreate = () => {
       });
   };
 
-
-  const handlePasswordChange = () => {
-    navigate('/user/profil/password');
-  };
-
-  const handleTickets = () => {
-    navigate('/user/profil/tickets');
-  };
-
   const returnPreviousPage = () => {
     navigate('/admin/category-list');
   };
-
   
   const handleCategoryChange = (e) => {
     const { name, value } = e.target;

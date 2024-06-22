@@ -89,7 +89,7 @@ function App() {
         <Route path="/admin/event-create" element={<EventCreate/>} />
         <Route path="/admin/event-edit/:id" element={<EventEdit/>} />
         <Route path="/admin/event-edit/subscription-list/:id" element={<EventSubscriptionList/>} />
-        <Route path="*" element={<Home/>} />
+        <Route path="*" element={<NotFound/>} />
       </Routes>
       {<Footer/>}
       </div>

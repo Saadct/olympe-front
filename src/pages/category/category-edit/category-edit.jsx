@@ -24,7 +24,7 @@ const CategoryEdit = () => {
     .catch(error => {
       console.error('Erreur lors de la récupération des informations de la category:', error);
     });
-  }, []);
+  }, [id]);
 
   const handleCategoryChange = (e) => {
     const { name, value } = e.target;

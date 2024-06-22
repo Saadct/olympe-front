@@ -107,7 +107,7 @@ const EventListCard = () => {
 
   const nextPage = async () => {
     if (currentPage < totalPages - 1) { 
-      if(isFiltered == false){
+      if(isFiltered === false){
         await changeItemsPerPageEventCard(currentPage + 1, itemsPerPage);
       }else{
         await handleCategoryClick(categoryId, currentPage + 1, itemsPerPage);
@@ -118,7 +118,7 @@ const EventListCard = () => {
   
   const previousPage = async () => {
     if (currentPage > 0) {
-      if(isFiltered == false){
+      if(isFiltered === false){
       await changeItemsPerPageEventCard(currentPage - 1, itemsPerPage);
       }
       else{
