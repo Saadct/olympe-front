@@ -1,9 +1,9 @@
-name: Prod - Deploy APP to FTP 
+name: Prod - Deploy APP to FTP
 
 on:
   push:
     branches:
-      - main 
+      - main
 
 jobs:
   deploy:
@@ -12,7 +12,12 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
-      
+
+      - name: Install Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '14'
+
       - name: Install dependencies
         run: npm install
 
@@ -20,15 +25,13 @@ jobs:
         run: npm run build
 
       - name: Check build directory
-        run: |
-          ls -l ./build
-          git status ./build
+        run: ls -l ./build
 
-      - name: Deploy to FTP
-        uses: SamKirkland/FTP-Deploy-Action@4.0.0
-        with:
-          server: projet-efrei.alwaysdata.net
-          username: projet-efrei
-          password: Wassila21!
-          local-dir: ./build/
-          server-dir: /www/
+      - name: FTP Deploy
+        env:
+          FTP_SERVER: projet-efrei.alwaysdata.net
+          FTP_USERNAME: projet-efrei
+          FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
+        run: |
+          echo "Deploying to FTP server..."
+          lftp -c "set ftp:ssl-allow no; open -u $FTP_USERNAME,$FTP_PASSWORD $FTP_SERVER; mirror -R ./build /www/"
