@@ -15,7 +15,7 @@ jobs:
 
       - name: Test FTP Connection
         env:
-          FTP_SERVER: projet-efrei.alwaysdata.net
+          FTP_SERVER: ftp-projet-efrei.alwaysdata.net
           FTP_USERNAME: projet-efrei
           FTP_PASSWORD: ${{ secrets.FTPPASSWORDPROD }}
         run: |
