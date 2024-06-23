@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import EventCard from './event';
-import './Event.css';
+import './event-list.css';
 
 const EventListCard = () => {
   const [events, setEvents] = useState([]);
@@ -9,11 +9,11 @@ const EventListCard = () => {
   const [categories, setCategories] = useState([]);
 
   const [startIndexCat, setStartIndexCat] = useState(0);
-  const [itemsPerPageCat, setItemsPerPageCat] = useState(4); 
+  const [itemsPerPageCat, setItemsPerPageCat] = useState(1); 
   const [currentPage, setCurrentPage] = useState(0);
   const [totalPages, setTotalPages] = useState(0);
 
-  const [itemsPerPage, setItemsPerPage] = useState(10); 
+  const [itemsPerPage, setItemsPerPage] = useState(1); 
   const [categoryId, setCategory] = useState(''); 
   const [isFiltered, setFilter] = useState(false) 
 

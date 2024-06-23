@@ -31,6 +31,9 @@ import EventEdit from './pages/event/event-edit/event-edit';
 import EventSubscriptionList from './pages/event/event-subscription-list/event-subscription-list';
 import UserCreate from './pages/users/user-create/user-create';
 import ProtectedRoute from './components/security/protectedRoad';
+import NotFound from './pages/404/404.jsx'
+import './App.css';
+
 
 function App() {
   const [userRole, setUserRole] = useState(localStorage.getItem('role'));
@@ -88,7 +91,7 @@ function App() {
         <Route path="/admin/event-create" element={<EventCreate/>} />
         <Route path="/admin/event-edit/:id" element={<EventEdit/>} />
         <Route path="/admin/event-edit/subscription-list/:id" element={<EventSubscriptionList/>} />
-        <Route path="*" element={<Home/>} />
+        <Route path="*" element={<NotFound/>} />
       </Routes>
       {<Footer/>}
       </div>
