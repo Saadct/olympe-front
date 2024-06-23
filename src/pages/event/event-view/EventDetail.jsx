@@ -1,19 +1,19 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
+import { Card, Button, Spinner } from 'react-bootstrap';
 
 const EventDetailPage = () => {
-  const { eventId } = useParams(); 
-  const [event, setEvent] = useState(null); 
-  const [isRegistered, setIsRegistered] = useState(false); 
-  const [isAvailable, setIsAvailable] = useState(false); 
+  const { eventId } = useParams();
+  const [event, setEvent] = useState(null);
+  const [isRegistered, setIsRegistered] = useState(false);
+  const [isAvailable, setIsAvailable] = useState(false);
 
-  const navigate = useNavigate(); 
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchEventDetails = async () => {
       try {
-
         const response = await axios.get(`http://localhost:8080/evenements/details/${eventId}`);
         setEvent(response.data);
       } catch (error) {
@@ -23,22 +23,20 @@ const EventDetailPage = () => {
 
     const checkRegistration = async () => {
       const token = localStorage.getItem('token');
-      if(token){
-      try {
-        const response = await axios.get(`http://localhost:8080/users/ticket/checkregistration/${eventId}`, 
-         {
-          headers: {
-            'Authorization': `Bearer ${token}`
+      if (token) {
+        try {
+          const response = await axios.get(`http://localhost:8080/users/ticket/checkregistration/${eventId}`, {
+            headers: {
+              'Authorization': `Bearer ${token}`
+            }
+          });
+          if (response.status === 200) {
+            setIsRegistered(true);
           }
-         } 
-         );
-        if (response.status === 200) {
-          setIsRegistered(true);
+        } catch (error) {
+          console.error('Erreur lors de la vérification de l\'inscription', error);
         }
-      } catch (error) {
-        console.error('Erreur lors de la vérification de l\'inscription', error);
       }
-    }
     };
 
     const checkAvailableEvent = async () => {
@@ -50,68 +48,64 @@ const EventDetailPage = () => {
       } catch (error) {
         console.error('Erreur lors de la vérification de l\'inscription', error);
       }
-    
     };
 
     checkRegistration();
     fetchEventDetails();
     checkAvailableEvent();
-  }, [eventId]); 
+  }, [eventId]);
 
+  const subscription = async () => {
+    const token = localStorage.getItem('token');
 
-    const subscription = async () => {
-      const token = localStorage.getItem('token');
-
-      if(token){
+    if (token) {
       try {
-          const response = await axios.post(`http://localhost:8080/users/ticket/subscription/${eventId}`, 
-            {}, 
-              {
-            headers: {
-              'Authorization': `Bearer ${token}`
-            }
-            } 
-            );
-          if (response.status === 200) {
-            setIsRegistered(true);
+        const response = await axios.post(`http://localhost:8080/users/ticket/subscription/${eventId}`, {}, {
+          headers: {
+            'Authorization': `Bearer ${token}`
           }
-        } catch (error) {
-          console.error('Erreur lors de la vérification de l\'inscription', error);
+        });
+        if (response.status === 200) {
+          setIsRegistered(true);
         }
-      }else{
-        alert("Vous devez vous connecter");
-        navigate('/connection')
+      } catch (error) {
+        console.error('Erreur lors de la vérification de l\'inscription', error);
       }
-
-    };
+    } else {
+      alert("Vous devez vous connecter");
+      navigate('/connection');
+    }
+  };
 
   if (!event) {
-    return <div>Chargement des détails de l'événement...</div>;
+    return <div className="d-flex justify-content-center"><Spinner animation="border" /></div>;
   }
 
-  return (<div>
-    <div className="event-detail">
-      <h2>{event.name}</h2>
-      <p>Date: {event.dateEvent}</p>
-      <p>Heure de début: {event.hourBegin}</p>
-      <p>Heure de fin: {event.hourEnding}</p>
-      <p>Places totales: {event.totalSeats}</p>
-      <p>Places disponibles: {event.availableSeats}</p>
-      <p>Prix standard: {event.standartPrice} €</p>
-    
+  return (
+    <div className="container mt-5">
+      <Card>
+        <Card.Header as="h2">{event.name}</Card.Header>
+        <Card.Body>
+          <Card.Text>Date: {event.dateEvent}</Card.Text>
+          <Card.Text>Heure de début: {event.hourBegin}</Card.Text>
+          <Card.Text>Heure de fin: {event.hourEnding}</Card.Text>
+          <Card.Text>Places totales: {event.totalSeats}</Card.Text>
+          <Card.Text>Places disponibles: {event.availableSeats}</Card.Text>
+          <Card.Text>Prix standard: {event.standartPrice} €</Card.Text>
 
-      <div className="registration-status">
-        {isRegistered ? (
-          <p>Vous êtes inscrit.</p>
-        ) : (
-          !isAvailable ? (
-            <p>Plus de place disponible.</p>
-          ) : (
-            <button onClick={subscription}>Inscrivez-vous</button>
-          )
-        )}
-      </div>
-    </div>
+          <div className="registration-status">
+            {isRegistered ? (
+              <p className="text-success">Vous êtes inscrit.</p>
+            ) : (
+              !isAvailable ? (
+                <p className="text-danger">Plus de place disponible.</p>
+              ) : (
+                <Button variant="primary" onClick={subscription}>Inscrivez-vous</Button>
+              )
+            )}
+          </div>
+        </Card.Body>
+      </Card>
     </div>
   );
 };
