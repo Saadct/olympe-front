@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
@@ -14,6 +14,26 @@ const UserCreate = () => {
   const [name, setName] = useState('');
   const navigate = useNavigate(); 
 
+
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    const checkConnection = async () => {
+      if (!token) {
+        window.location.href = "/deconnexion";
+      }
+      try {
+          await axios.get('http://localhost:8080/users/check-connected-admin', {
+          headers: {
+            'Authorization': `Bearer ${token}`
+          }
+        });
+      } catch (error) {
+        navigate("/deconnexion");
+      } 
+    };
+    checkConnection();
+  }, [navigate]);
+  
 
   const userSubmit = (e) => {
     e.preventDefault();

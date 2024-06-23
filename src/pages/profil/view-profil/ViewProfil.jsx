@@ -17,10 +17,29 @@ const ViewProfil = () => {
   const navigate = useNavigate(); 
 
 
-
-
-  
   useEffect(() => {
+    const token = localStorage.getItem('token');
+    const checkConnection = async () => {
+      if (!token) {
+        window.location.href = "/deconnexion";
+      }
+      try {
+          await axios.get('http://localhost:8080/users/check-connected', {
+          headers: {
+            'Authorization': `Bearer ${token}`
+          }
+        });
+      } catch (error) {
+        navigate("/deconnexion");
+      } 
+    };
+    checkConnection();
+  }, [navigate]);
+
+
+
+  useEffect(() => {
+    
     const token = localStorage.getItem('token');
 
     axios.get('http://localhost:8080/users/me', {

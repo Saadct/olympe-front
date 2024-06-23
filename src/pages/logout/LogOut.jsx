@@ -7,6 +7,7 @@ const LogOut = ({ setIsLoggedIn }) => {
     setIsLoggedIn(false);
     localStorage.removeItem('token');
     localStorage.removeItem('role');
+    localStorage.removeItem('isLog');
   }, [setIsLoggedIn]);
 
   return (

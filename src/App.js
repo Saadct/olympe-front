@@ -38,6 +38,7 @@ function App() {
   const [userRole, setUserRole] = useState(localStorage.getItem('role'));
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
+  
   useEffect(() => {
     const role = localStorage.getItem('role');
     setUserRole(role);
@@ -61,27 +62,35 @@ function App() {
         <Route path="/evenements" element={<EventListCard/>} />
         <Route path="/evenements/details/:eventId" element={<EventDetailPage/>} />
      
+        {isLoggedIn && (
+        <>
         <Route path="/user/profil" element={ <ViewProfil /> } />
         <Route path="/user/profil/password" element={<ChangePasswordPage/> } />
         <Route path="/user/profil/tickets" element={<TicketList />} />
+        </>
+        )}     
        
+        {userRole === 'ADMIN' && isLoggedIn && (
+            <>
+              <Route path="/admin/user-list" element={<UserList />} />
+              <Route path="/admin/user-create" element={<UserCreate />} />
+              <Route path="/admin/user-edit/:id" element={<UserEdit />} />
+              <Route path="/admin/user-edit/ticket-list/:id" element={<UserTicketList />} />
+
+              <Route path="/admin/category-list" element={<CategoryList />} />
+              <Route path="/admin/category-edit/:id" element={<CategoryEdit />} />
+              <Route path="/admin/category-create" element={<CategoryCreate />} />
+              <Route path="/admin/category-list-event/:id" element={<EventListByIdCategory />} />
+
+              <Route path="/admin/event-list" element={<EventList />} />
+              <Route path="/admin/event-create" element={<EventCreate />} />
+              <Route path="/admin/event-edit/:id" element={<EventEdit />} />
+              <Route path="/admin/event-edit/subscription-list/:id" element={<EventSubscriptionList />} />
+            </>
+          )}
+
+
         <Route path="/conditions-utilisation" element={<CGU />} />
-       
-       
-        <Route path="/admin/user-list" element={<UserList />} />
-        <Route path="/admin/user-create" element={<UserCreate />} />
-        <Route path="/admin/user-edit/:id" element={<UserEdit />} />
-        <Route path="/admin/user-edit/ticket-list/:id" element={<UserTicketList />} />
-      
-        <Route path="/admin/category-list" element={<CategoryList />} />
-        <Route path="/admin/category-edit/:id" element={<CategoryEdit />} />
-        <Route path="/admin/category-create" element={<CategoryCreate />} />
-        <Route path="/admin/category-list-event/:id" element={<EventListByIdCategory/>} />
-     
-        <Route path="/admin/event-list" element={<EventList/>} />
-        <Route path="/admin/event-create" element={<EventCreate/>} />
-        <Route path="/admin/event-edit/:id" element={<EventEdit/>} />
-        <Route path="/admin/event-edit/subscription-list/:id" element={<EventSubscriptionList/>} />
         <Route path="*" element={<NotFound/>} />
       </Routes>
       {<Footer/>}

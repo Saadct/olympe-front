@@ -21,6 +21,27 @@ const EventEdit = () => {
   const [isEditingEvent, setIsEditingEvent] = useState(false);
   const [categoryName, setCategoryName] = useState('');
 
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    const checkConnection = async () => {
+      if (!token) {
+        window.location.href = "/deconnexion";
+      }
+      try {
+          await axios.get('http://localhost:8080/users/check-connected-admin', {
+          headers: {
+            'Authorization': `Bearer ${token}`
+          }
+        });
+      } catch (error) {
+        navigate("/deconnexion");
+      } 
+    };
+    checkConnection();
+  }, [navigate]);
+
+
+
 
   const fetchCategories = async () => {
     const token = localStorage.getItem('token');

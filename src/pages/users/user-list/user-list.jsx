@@ -13,6 +13,25 @@ const UserList = () => {
   const navigate = useNavigate(); 
 
 
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    const checkConnection = async () => {
+      if (!token) {
+        window.location.href = "/deconnexion";
+      }
+      try {
+          await axios.get('http://localhost:8080/users/check-connected-admin', {
+          headers: {
+            'Authorization': `Bearer ${token}`
+          }
+        });
+      } catch (error) {
+        navigate("/deconnexion");
+      } 
+    };
+    checkConnection();
+  }, [navigate]);
+
   const fetchUsers = async (page, size) => {
     const token = localStorage.getItem('token');
     try {

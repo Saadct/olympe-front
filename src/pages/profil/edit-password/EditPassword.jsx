@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 const ChangePasswordPage = () => {
@@ -9,6 +9,33 @@ const ChangePasswordPage = () => {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
+  const navigate = useNavigate(); 
+
+
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    const checkConnection = async () => {
+      if (!token) {
+        window.location.href = "/deconnexion";
+      }
+      try {
+          await axios.get('http://localhost:8080/users/check-connected', {
+          headers: {
+            'Authorization': `Bearer ${token}`
+          }
+        });
+      } catch (error) {
+        navigate("/deconnexion");
+      } 
+    };
+    checkConnection();
+  }, [navigate]);
+
+
+
+
+
+
 
   const handleChangePassword = async (e) => {
     e.preventDefault();
@@ -42,8 +69,8 @@ const ChangePasswordPage = () => {
   };
 
   return (
-    <div className="container mt-5">
-      <div className="row justify-content-center">
+    <div className="container mt-5 d-flex justify-content-center align-items-center">
+      <div className="row">
         <div className="col-md-6">
           <div className="card">
             <div className="card-body">

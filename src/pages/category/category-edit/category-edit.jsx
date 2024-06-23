@@ -12,6 +12,32 @@ const CategoryEdit = () => {
   const{ id } = useParams("id");
   const [isEditingCategory, setIsEditingCategory] = useState(false);
 
+  const token = useState(localStorage.getItem('token'));
+
+  useEffect(() => {
+
+    const checkConnection = async () => {
+      if (!token) {
+        navigate("/deconnexion");
+      }
+
+      try {
+          await axios.get('http://localhost:8080/users/check-connected-admin', {
+          headers: {
+            'Authorization': `Bearer ${token}`
+          }
+        });
+      
+      } catch (error) {
+        navigate("/deconnexion");
+        
+      } 
+    };
+    checkConnection();
+    
+  }, [token,navigate]);
+
+
 
   useEffect(() => {
     axios.get(`http://localhost:8080/categories/${id}`)

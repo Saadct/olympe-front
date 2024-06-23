@@ -3,6 +3,8 @@ import axios from 'axios';
 import './list-ticket.css'; 
 import CardTicket from './ticket';
 import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+
 
 const TicketList = () => {
   const [tickets, setTickets] = useState([]);
@@ -15,8 +17,27 @@ const TicketList = () => {
   const [itemsPerPage, setItemsPerPage] = useState(12); 
   const [state, setState] = useState('');
   const [isFiltered, setFilter] = useState(false)
+  const navigate = useNavigate(); 
 
 
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    const checkConnection = async () => {
+      if (!token) {
+        window.location.href = "/deconnexion";
+      }
+      try {
+          await axios.get('http://localhost:8080/users/check-connected', {
+          headers: {
+            'Authorization': `Bearer ${token}`
+          }
+        });
+      } catch (error) {
+        navigate("/deconnexion");
+      } 
+    };
+    checkConnection();
+  }, [navigate]);
   
 
   const fetchTickets = useCallback(async () => {

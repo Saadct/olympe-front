@@ -6,34 +6,41 @@ const useIsConnected = () => {
   const [isConnected, setIsConnected] = useState(false);
 
   useEffect(() => {
-    const checkConnection = async () => {
-      const token = localStorage.getItem('token');
+    const token = localStorage.getItem('token');
+
+    const checkConnection = () => {
       if (!token) {
         setIsConnected(false);
         return;
       }
 
       try {
-        const response = await axios.get('http://localhost:8080/users/check-connected', {
+        const response = axios.get('http://localhost:8080/users/check-connected', {
           headers: {
             'Authorization': `Bearer ${token}`
           }
         });
 
-        if (response.status === 200) {
+        if (response.status === 200 ) {
           setIsConnected(true);
         } else {
           setIsConnected(false);
         }
       } catch (error) {
+        console.error('Erreur lors de la vérification de la connexion:', error);
         setIsConnected(false);
-      }
+      } 
     };
-
     checkConnection();
+    
   }, []);
 
-  return isConnected;
+  if(isConnected === false){
+    return false;
+    }
+    if(isConnected === true){
+      return true;
+    }
 };
 
 export default useIsConnected;
