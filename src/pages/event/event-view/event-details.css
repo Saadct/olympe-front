@@ -1,0 +1,17 @@
+
+body{
+    background-color: #f1f1f1 !important;
+}
+
+.sub-button{
+     border-radius: 25px !important;
+     color: black !important;
+     background-color: transparent !important;
+}
+
+.sub-button:hover{
+    border-radius: 25px !important;
+    color: rgb(251, 251, 251) !important;
+    background-color: rgb(88, 88, 139) !important;
+}
+  

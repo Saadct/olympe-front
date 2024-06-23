@@ -99,7 +99,7 @@ const EventList = () => {
 
   return (
     <div className="container">
-    <h1 className="mb-0">Liste des Evenements</h1>
+    <h1 className="mb-0">Liste des Événement</h1>
 
 
    <div className="d-flex justify-content-between align-items-center mt-3">

@@ -11,7 +11,7 @@ const LogOut = ({ setIsLoggedIn }) => {
 
   return (
     <div className="logout-container container">
-      <h2 className="text-danger mb-4">Vous êtes déconnecté</h2>
+      <h2 className="mb-4">Vous êtes déconnecté</h2>
       <p className="text-muted mb-4">
         Vous êtes déconnecté. Vous pouvez vous reconnecter en utilisant le formulaire de connexion.
       </p>

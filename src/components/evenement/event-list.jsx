@@ -156,7 +156,7 @@ const EventListCard = () => {
 
 
   return (
-    <div>
+    <div style={{minHeight:"800px"}}>
       <div className="category-filters">
       <button className="category-button" onClick={() => changeItemsPerPageEventCard(0, itemsPerPage) }>aucun filtre</button> 
         <div className="category-buttons">

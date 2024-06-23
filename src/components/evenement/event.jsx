@@ -6,7 +6,7 @@ const EventCard = ({ event }) => {
     <div className="event-card">
       <div className="event-card-header">
         <h2 className="event-name">{event.name}</h2>
-        <p className="event-category">Catégorie: {event.category.name}</p>
+        <p className="event-category">{event.category.name}</p>
       </div>
       <div className="event-card-body">
         <p className="event-date">Date: {event.dateEvent}</p>

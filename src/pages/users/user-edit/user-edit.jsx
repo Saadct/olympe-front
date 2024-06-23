@@ -92,7 +92,7 @@ const UserEdit = () => {
 
       <div className="profile-container">
         <div className="profile-header">
-        <h1>nom complet *: {fullname}</h1>        
+        <h1>nom complet: {fullname}</h1>        
         </div>
         <p>email : {email}</p>
         <p>Nom:  {name} </p>

@@ -230,12 +230,12 @@ const EventEdit = () => {
     {isEditingEvent && (
     <form onSubmit={eventSubmit} className="edit-form">
     <button type="submit" className="save-button">Save</button>
-    <button type="button" className="cancel-button" onClick={() => setIsEditingEvent(false)}>Cancel</button>
+    <button type="button" className="cancel-button" onClick={() => setIsEditingEvent(false)}>Annuler</button>
     </form>
     )};
 
 {!isEditingEvent && (
-        <button className="action-button" onClick={viewSubscription}>Voir les inscriptions lié</button>
+        <button className="action-button" onClick={viewSubscription}>Voir les inscriptions liés</button>
      
    )}
       </div>

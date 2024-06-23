@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
 import { Card, Button, Spinner } from 'react-bootstrap';
+import './event-details.css';
+
 
 const EventDetailPage = () => {
   const { eventId } = useParams();
@@ -82,16 +84,16 @@ const EventDetailPage = () => {
   }
 
   return (
-    <div className="container mt-5">
+    <div className="container d-flex justify-content-center align-items-center mb-5 mt-5">
       <Card>
-        <Card.Header as="h2">{event.name}</Card.Header>
+        <Card.Header as="h3">{event.name}</Card.Header>
         <Card.Body>
           <Card.Text>Date: {event.dateEvent}</Card.Text>
           <Card.Text>Heure de début: {event.hourBegin}</Card.Text>
           <Card.Text>Heure de fin: {event.hourEnding}</Card.Text>
-          <Card.Text>Places totales: {event.totalSeats}</Card.Text>
           <Card.Text>Places disponibles: {event.availableSeats}</Card.Text>
-          <Card.Text>Prix standard: {event.standartPrice} €</Card.Text>
+          <Card.Text style={{ overflowWrap: "break-word" }}>Intro: {event.shortDescription}</Card.Text>
+          <Card.Text style={{ overflowWrap: "break-word" }}>Description: {event.longDescription}</Card.Text>
 
           <div className="registration-status">
             {isRegistered ? (
@@ -100,7 +102,7 @@ const EventDetailPage = () => {
               !isAvailable ? (
                 <p className="text-danger">Plus de place disponible.</p>
               ) : (
-                <Button variant="primary" onClick={subscription}>Inscrivez-vous</Button>
+                <Button className="sub-button" onClick={subscription}>Inscrivez-vous</Button>
               )
             )}
           </div>

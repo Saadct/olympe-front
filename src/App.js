@@ -12,7 +12,7 @@ import NavbarLoggedAdminIn from './components/navbar/NavbarLoggedAdminIn';
 import { useState } from 'react';
 import LogOut from './pages/logout/LogOut';
 import EventListCard from './components/evenement/event-list';
-import EventDetailPage from './pages/event/event-view/EventDetail';
+import EventDetailPage from './pages/event/event-view/event-details.jsx';
 import ViewProfil from './pages/profil/view-profil/ViewProfil';
 import ChangePasswordPage from './pages/profil/edit-password/EditPassword';
 import TicketList from './pages/profil/list-ticket/list-ticket';
@@ -30,7 +30,6 @@ import EventCreate from './pages/event/event-create/event-create';
 import EventEdit from './pages/event/event-edit/event-edit';
 import EventSubscriptionList from './pages/event/event-subscription-list/event-subscription-list';
 import UserCreate from './pages/users/user-create/user-create';
-import ProtectedRoute from './components/security/protectedRoad';
 import NotFound from './pages/404/404.jsx'
 import './App.css';
 
@@ -62,16 +61,8 @@ function App() {
         <Route path="/evenements" element={<EventListCard/>} />
         <Route path="/evenements/details/:eventId" element={<EventDetailPage/>} />
      
-        <Route path="/user/profil" element={
-          <ProtectedRoute>
-            <ViewProfil />
-          </ProtectedRoute>
-        } />
-        <Route path="/user/profil/password" element={
-          <ProtectedRoute>
-          <ChangePasswordPage/>
-          </ProtectedRoute>
-          } />
+        <Route path="/user/profil" element={ <ViewProfil /> } />
+        <Route path="/user/profil/password" element={<ChangePasswordPage/> } />
         <Route path="/user/profil/tickets" element={<TicketList />} />
        
         <Route path="/conditions-utilisation" element={<CGU />} />
