@@ -22,7 +22,7 @@ const UserCreate = () => {
         window.location.href = "/deconnexion";
       }
       try {
-          await axios.get('http://localhost:8080/users/check-connected-admin', {
+          await axios.get(`${process.env.REACT_APP_API_URL}/users/check-connected-admin`, {
           headers: {
             'Authorization': `Bearer ${token}`
           }
@@ -38,7 +38,7 @@ const UserCreate = () => {
   const userSubmit = (e) => {
     e.preventDefault();
     const token = localStorage.getItem('token');
-    axios.post(`http://localhost:8080/auth/signup`, 
+    axios.post(`${process.env.REACT_APP_API_URL}/auth/signup`, 
       { email: email, name: name, 
         firstName: firstName, fullName: fullName, 
         password: password
@@ -48,7 +48,7 @@ const UserCreate = () => {
           'Authorization': `Bearer ${token}`
         }
       }).then(response => {
-        toast.success('User crée avec succès !', {
+        toast.success('utilisateur crée avec succès !', {
           position: "top-right",
           autoClose: 2000,
           hideProgressBar: false,
@@ -64,7 +64,7 @@ const UserCreate = () => {
 */
       })
       .catch(error => {
-        toast.error('Erreur lors de la création de l%user.', {
+        toast.error('Erreur lors de la création de l\'utilisateur.', {
           position: "top-right",
           autoClose: 2000,
           hideProgressBar: false,

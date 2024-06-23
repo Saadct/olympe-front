@@ -35,7 +35,7 @@ const CategoryCreate = () => {
   const categorySubmit = (e) => {
     e.preventDefault();
     const token = localStorage.getItem('token');
-    axios.post(`http://localhost:8080/categories/create`, 
+    axios.post(`${process.env.REACT_APP_API_URL}/categories/create`, 
       { type: type, name: name}
       , {
         headers: {
@@ -98,7 +98,7 @@ const CategoryCreate = () => {
 
         <input type="text" name="type" value={type} onChange={handleCategoryChange} className="input-edit input-spacing" placeholder='type'/> 
           <form onSubmit={categorySubmit} className="edit-form">
-            <button type="submit" className="save-button">Save</button>
+            <button type="submit" className="save-button">Sauvegarder</button>
           </form>
       </div>
       <ToastContainer />

@@ -47,14 +47,12 @@ function App() {
 
   return (
     <Router>
-
       <div>
       {userRole === 'ADMIN' && isLoggedIn ? (<NavbarLoggedAdminIn /> ) 
       : userRole === 'USER' && isLoggedIn ? (<NavbarLoggedUserIn />) 
       : (<NavbarLoggedOut /> )}
       <Routes>
         <Route path="/" element={<Home />} />
-     
         <Route path="/connection" element={<LoginPage setIsLoggedIn={setIsLoggedIn}/>} />
         <Route path="/inscription" element={<Signup/>} />
         <Route path="/deconnexion" element={<LogOut setIsLoggedIn={setIsLoggedIn}/>} />

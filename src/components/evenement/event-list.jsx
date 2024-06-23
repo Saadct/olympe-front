@@ -9,11 +9,11 @@ const EventListCard = () => {
   const [categories, setCategories] = useState([]);
 
   const [startIndexCat, setStartIndexCat] = useState(0);
-  const [itemsPerPageCat, setItemsPerPageCat] = useState(1); 
+  const [itemsPerPageCat, setItemsPerPageCat] = useState(4); 
   const [currentPage, setCurrentPage] = useState(0);
   const [totalPages, setTotalPages] = useState(0);
 
-  const [itemsPerPage, setItemsPerPage] = useState(1); 
+  const [itemsPerPage, setItemsPerPage] = useState(10); 
   const [categoryId, setCategory] = useState(''); 
   const [isFiltered, setFilter] = useState(false) 
 
@@ -22,7 +22,7 @@ const EventListCard = () => {
   useEffect(() => {
     const fetchEventsPaginated = async (page, size) => {
       try {
-        const response = await axios.get(`http://localhost:8080/evenements/paginated/${page}/${size}`);
+        const response = await axios.get(`${process.env.REACT_APP_API_URL}/evenements/paginated/${page}/${size}`);
         const eventData = response.data[0]; 
         const totalPage = response.data[1]; 
         setTotalPages(totalPage)
@@ -38,7 +38,7 @@ const EventListCard = () => {
   useEffect(() => {
     const fetchCategories = async () => {
       try {
-        const response = await axios.get('http://localhost:8080/categories');
+        const response = await axios.get(`${process.env.REACT_APP_API_URL}/categories`);
         setCategories(response.data);
       } catch (err) {
         console.error('Error fetching categories', err);
@@ -56,7 +56,7 @@ const EventListCard = () => {
     console.log(categories);
     console.log(uuid);
     try {
-      const response = await axios.get(`http://localhost:8080/evenements/paginatedByCategory/${page}/${size}/${uuid}`);
+      const response = await axios.get(`${process.env.REACT_APP_API_URL}/evenements/paginatedByCategory/${page}/${size}/${uuid}`);
   
       const eventData = response.data[0]; 
       const totalPage = response.data[1]; 
@@ -141,7 +141,7 @@ const EventListCard = () => {
     try {
       setCategory('');
       setFilter(false);
-      const response = await axios.get(`http://localhost:8080/evenements/paginated/${page}/${number}`);
+      const response = await axios.get(`${process.env.REACT_APP_API_URL}/evenements/paginated/${page}/${number}`);
       const eventData = response.data[0];
       const totalPage = response.data[1]; 
     

@@ -27,7 +27,7 @@ const TicketList = () => {
         window.location.href = "/deconnexion";
       }
       try {
-          await axios.get('http://localhost:8080/users/check-connected', {
+          await axios.get(`${process.env.REACT_APP_API_URL}/users/check-connected`, {
           headers: {
             'Authorization': `Bearer ${token}`
           }
@@ -43,7 +43,7 @@ const TicketList = () => {
   const fetchTickets = useCallback(async () => {
     const token = localStorage.getItem('token');
     try {
-      const response = await axios.get(`http://localhost:8080/users/tickets/me/${page}/${size}`, {
+      const response = await axios.get(`${process.env.REACT_APP_API_URL}/users/tickets/me/${page}/${size}`, {
         headers: {
           'Authorization': `Bearer ${token}`
         }
@@ -96,7 +96,7 @@ const TicketList = () => {
     setFilter(false);
     try {
       const token = localStorage.getItem('token');
-      const response = await axios.get(`http://localhost:8080/users/tickets/me/${page}/${number}`,
+      const response = await axios.get(`${process.env.REACT_APP_API_URL}/users/tickets/me/${page}/${number}`,
          {
           headers: {
             'Authorization': `Bearer ${token}`
@@ -121,7 +121,7 @@ const TicketList = () => {
     setFilter(true);
     const token = localStorage.getItem('token');
     try {
-      const response = await axios.get(`http://localhost:8080/users/tickets/me/${state}/${page}/${size}`,
+      const response = await axios.get(`${process.env.REACT_APP_API_URL}/users/tickets/me/${state}/${page}/${size}`,
         {
           headers: {
             'Authorization': `Bearer ${token}`

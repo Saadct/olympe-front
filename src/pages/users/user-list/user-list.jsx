@@ -20,7 +20,7 @@ const UserList = () => {
         window.location.href = "/deconnexion";
       }
       try {
-          await axios.get('http://localhost:8080/users/check-connected-admin', {
+          await axios.get(`${process.env.REACT_APP_API_URL}/users/check-connected-admin`, {
           headers: {
             'Authorization': `Bearer ${token}`
           }

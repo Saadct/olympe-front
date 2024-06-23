@@ -38,7 +38,7 @@ const EventSubscriptionList = () => {
   const fetchEventSubscriptions = useCallback(async () => {
     const token = localStorage.getItem('token');
     try {
-      const response = await axios.get(`http://localhost:8080/tickets/paginated/${id}/${page}/${size}`,{
+      const response = await axios.get(`${process.env.REACT_APP_API_URL}/tickets/paginated/${id}/${page}/${size}`,{
           headers: {
             'Authorization': `Bearer ${token}`
           }
@@ -56,7 +56,7 @@ const EventSubscriptionList = () => {
   const handleUnsubscribe = async (uuid) => {
     try {
       const token = localStorage.getItem('token');
-      await axios.delete(`http://localhost:8080/users/ticket/cancel-subscription/${uuid}`, {
+      await axios.delete(`${process.env.REACT_APP_API_URL}/users/ticket/cancel-subscription/${uuid}`, {
         headers: {
           'Authorization': `Bearer ${token}`
         }

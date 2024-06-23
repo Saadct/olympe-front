@@ -16,7 +16,7 @@ const LogOut = ({ setIsLoggedIn }) => {
       <p className="text-muted mb-4">
         Vous êtes déconnecté. Vous pouvez vous reconnecter en utilisant le formulaire de connexion.
       </p>
-      <Link to="/dashboard" className="btn btn-outline-primary">
+      <Link to="/" className="btn btn-outline-primary">
         Retour à l'accueil
       </Link>
     </div>

@@ -23,7 +23,7 @@ const EventList = () => {
         window.location.href = "/deconnexion";
       }
       try {
-          await axios.get('http://localhost:8080/users/check-connected-admin', {
+          await axios.get(`${process.env.REACT_APP_API_URL}/users/check-connected-admin`, {
           headers: {
             'Authorization': `Bearer ${token}`
           }
@@ -39,7 +39,7 @@ const EventList = () => {
   const fetchEvents = async (page, size) => {
     const token = localStorage.getItem('token');
     try {
-      const response = await axios.get(`http://localhost:8080/evenements/paginated/${page}/${size}`,{
+      const response = await axios.get(`${process.env.REACT_APP_API_URL}/evenements/paginated/${page}/${size}`,{
           headers: {
             'Authorization': `Bearer ${token}`
           }
@@ -82,14 +82,11 @@ const EventList = () => {
     navigate(`/admin/event-create`); 
   };
 
-  const returnPreviousPage = () => {
-    navigate('/admin/event-list');
-  };
 
   const deleteEvent = async (id) => {
     const token = localStorage.getItem('token');
     try {
-      await axios.delete(`http://localhost:8080/evenements/delete/${id}`, {
+      await axios.delete(`${process.env.REACT_APP_API_URL}/evenements/delete/${id}`, {
         headers: {
           'Authorization': `Bearer ${token}`
         }
@@ -120,14 +117,11 @@ const EventList = () => {
 
   return (
     <div className="container">
-    <h1 className="mb-0">Liste des Événement</h1>
+    <h1 className="mb-0">Liste des événements</h1>
 
 
    <div className="d-flex justify-content-between align-items-center mt-3">
    <div>
-   <button className="action-button detail" onClick={returnPreviousPage}>
-    Retour 
-    </button>
 </div>
     <button className="action-button detail" onClick={createEventButton}>
     Créer 
@@ -136,15 +130,15 @@ const EventList = () => {
       <div className="table-responsive">
       {events.length === 0 ? (
         <div className="alert alert-info text-center">
-          Aucun evenement trouvé.
+              Aucun événement trouvé.
         </div>
       ) : (
       <table className="table table-striped">
         <thead>
           <tr>
             <th>Nom</th>
-            <th>date</th>
-            <th>category</th>
+            <th>Date</th>
+            <th>Categorie</th>
             <th>Action</th>
           </tr>
         </thead>

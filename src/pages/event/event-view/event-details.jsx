@@ -16,7 +16,7 @@ const EventDetailPage = () => {
   useEffect(() => {
     const fetchEventDetails = async () => {
       try {
-        const response = await axios.get(`http://localhost:8080/evenements/details/${eventId}`);
+        const response = await axios.get(`${process.env.REACT_APP_API_URL}/evenements/details/${eventId}`);
         setEvent(response.data);
       } catch (error) {
         console.error('Erreur lors du chargement des détails de l\'événement:', error);
@@ -27,7 +27,7 @@ const EventDetailPage = () => {
       const token = localStorage.getItem('token');
       if (token) {
         try {
-          const response = await axios.get(`http://localhost:8080/users/ticket/checkregistration/${eventId}`, {
+          const response = await axios.get(`${process.env.REACT_APP_API_URL}/users/ticket/checkregistration/${eventId}`, {
             headers: {
               'Authorization': `Bearer ${token}`
             }
@@ -43,7 +43,7 @@ const EventDetailPage = () => {
 
     const checkAvailableEvent = async () => {
       try {
-        const response = await axios.get(`http://localhost:8080/evenements/checkavailable/${eventId}`);
+        const response = await axios.get(`${process.env.REACT_APP_API_URL}/evenements/checkavailable/${eventId}`);
         if (response.status === 200) {
           setIsAvailable(true);
         }
@@ -62,7 +62,7 @@ const EventDetailPage = () => {
 
     if (token) {
       try {
-        const response = await axios.post(`http://localhost:8080/users/ticket/subscription/${eventId}`, {}, {
+        const response = await axios.post(`${process.env.REACT_APP_API_URL}/users/ticket/subscription/${eventId}`, {}, {
           headers: {
             'Authorization': `Bearer ${token}`
           }
@@ -97,12 +97,12 @@ const EventDetailPage = () => {
 
           <div className="registration-status">
             {isRegistered ? (
-              <p className="text-success">Vous êtes inscrit.</p>
+              <p className="text-success">Vous êtes inscrit !</p>
             ) : (
               !isAvailable ? (
-                <p className="text-danger">Plus de place disponible.</p>
+                <p className="text-danger">Plus de place disponible !</p>
               ) : (
-                <Button className="sub-button" onClick={subscription}>Inscrivez-vous</Button>
+                <Button className="sub-button" onClick={subscription}>Inscrivez-vous !</Button>
               )
             )}
           </div>

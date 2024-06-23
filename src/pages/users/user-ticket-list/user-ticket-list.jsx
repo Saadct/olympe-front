@@ -21,7 +21,7 @@ const UserTicketList = () => {
         window.location.href = "/deconnexion";
       }
       try {
-          await axios.get('http://localhost:8080/users/check-connected-admin', {
+          await axios.get(`${process.env.REACT_APP_API_URL}/users/check-connected-admin`, {
           headers: {
             'Authorization': `Bearer ${token}`
           }
@@ -37,7 +37,7 @@ const UserTicketList = () => {
   const fetchUsers = useCallback( async (id, page, size) => {
     const token = localStorage.getItem('token');
     try {
-      const response = await axios.get(`http://localhost:8080/users/tickets/${id}/${page}/${size}`, {
+      const response = await axios.get(`${process.env.REACT_APP_API_URL}/users/tickets/${id}/${page}/${size}`, {
         headers: {
           'Authorization': `Bearer ${token}`
         }

@@ -21,7 +21,7 @@ const EventListByIdCategory = () => {
         window.location.href = "/deconnexion";
       }
       try {
-          await axios.get('http://localhost:8080/users/check-connected-admin', {
+          await axios.get(`${process.env.REACT_APP_API_URL}/users/check-connected-admin`, {
           headers: {
             'Authorization': `Bearer ${token}`
           }
@@ -36,7 +36,7 @@ const EventListByIdCategory = () => {
   const fetchEvents =  useCallback(async () => {
     const token = localStorage.getItem('token');
     try {
-      const response = await axios.get(`http://localhost:8080/evenements/paginatedByCategory/${page}/${size}/${id}`,{
+      const response = await axios.get(`${process.env.REACT_APP_API_URL}/evenements/paginatedByCategory/${page}/${size}/${id}`,{
           headers: {
             'Authorization': `Bearer ${token}`
           }
@@ -54,7 +54,7 @@ const EventListByIdCategory = () => {
   const deleteEvent = async (id) => {
     const token = localStorage.getItem('token');
     try {
-      await axios.delete(`http://localhost:8080/evenements/delete/${id}`, {
+      await axios.delete(`${process.env.REACT_APP_API_URL}/evenements/delete/${id}`, {
         headers: {
           'Authorization': `Bearer ${token}`
         }
@@ -117,8 +117,8 @@ const EventListByIdCategory = () => {
 
   return (
     <div className="container">
-    <h1 className="mb-0">Liste des Evenements pour la categorie</h1>
-   <div className="d-flex justify-content-between align-items-center">
+      <h1 className="mb-3">Liste des événements pour la catégorie</h1>
+      <div className="d-flex justify-content-between align-items-center">
        <button className="action-button detail" onClick={returnPreviousPage}>
       retour
       </button>

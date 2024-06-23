@@ -19,7 +19,7 @@ const ChangePasswordPage = () => {
         window.location.href = "/deconnexion";
       }
       try {
-          await axios.get('http://localhost:8080/users/check-connected', {
+          await axios.get(`${process.env.REACT_APP_API_URL}/users/check-connected`, {
           headers: {
             'Authorization': `Bearer ${token}`
           }
@@ -47,7 +47,7 @@ const ChangePasswordPage = () => {
 
     try {
       const token = localStorage.getItem('token');
-      const response = await axios.patch('http://localhost:8080/auth/updatePassword', {
+      const response = await axios.patch(`${process.env.REACT_APP_API_URL}/auth/updatePassword`, {
         oldPassword,
         newPassword
       }, {

@@ -12,17 +12,16 @@ const CategoryEdit = () => {
   const{ id } = useParams("id");
   const [isEditingCategory, setIsEditingCategory] = useState(false);
 
-  const token = useState(localStorage.getItem('token'));
 
   useEffect(() => {
-
+    const token = localStorage.getItem('token');
     const checkConnection = async () => {
       if (!token) {
         navigate("/deconnexion");
       }
 
       try {
-          await axios.get('http://localhost:8080/users/check-connected-admin', {
+          await axios.get(`${process.env.REACT_APP_API_URL}/users/check-connected-admin`, {
           headers: {
             'Authorization': `Bearer ${token}`
           }
@@ -35,12 +34,12 @@ const CategoryEdit = () => {
     };
     checkConnection();
     
-  }, [token,navigate]);
+  }, [navigate]);
 
 
 
   useEffect(() => {
-    axios.get(`http://localhost:8080/categories/${id}`)
+    axios.get(`${process.env.REACT_APP_API_URL}/categories/${id}`)
     .then(response => {
       setEditableType(response.data.type);
       setType(response.data.type);
@@ -69,7 +68,7 @@ const CategoryEdit = () => {
   const handleCategorySubmit = (e) => {
     e.preventDefault();
     const token = localStorage.getItem('token');
-    axios.put(`http://localhost:8080/categories/update/${id}`, 
+    axios.put(`${process.env.REACT_APP_API_URL}/categories/update/${id}`, 
       { type: editableType, name: editableName}
       , {
         headers: {
@@ -100,22 +99,22 @@ const CategoryEdit = () => {
 
   return (
     <div>
-      <h1 className='headerProfil'>La category</h1>
+      <h1 className='headerProfil'>Édition d'une catégorie</h1>
       <button className="return-button" onClick={returnPreviousPage}>retour</button>
 
       <div className="profile-container">
         <div className="profile-header">
           <h1 onClick={handleEditCategory}>{isEditingCategory ? <input type="text" name="name" value={editableName} onChange={handleCategoryChange} className="input-edit"/> : "nom: "+ name}</h1>
           {!isEditingCategory && (
-            <button className="edit-button" onClick={() => setIsEditingCategory(true)}>Edit Category</button>
+            <button className="edit-button" onClick={() => setIsEditingCategory(true)}>Éditer</button>
           )}
         </div>
         <h1 onClick={handleEditCategory}>{isEditingCategory ? <input type="text" name="type" value={editableType} onChange={handleCategoryChange} className="input-edit"/> : "type: " + (type ? type : "")}</h1>
 
         {isEditingCategory && (
           <form onSubmit={handleCategorySubmit} className="edit-form mb-3">
-            <button type="submit" className="save-button">Save</button>
-            <button type="button" className="cancel-button" onClick={() => setIsEditingCategory(false)}>Cancel</button>
+            <button type="submit" className="save-button">Sauvegarder</button>
+            <button type="button" className="cancel-button" onClick={() => setIsEditingCategory(false)}>Annuler</button>
           </form>
           
         )}

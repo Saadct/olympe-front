@@ -28,7 +28,7 @@ const EventCreate = () => {
         window.location.href = "/deconnexion";
       }
       try {
-          await axios.get('http://localhost:8080/users/check-connected-admin', {
+          await axios.get(`${process.env.REACT_APP_API_URL}/users/check-connected-admin`, {
           headers: {
             'Authorization': `Bearer ${token}`
           }
@@ -47,7 +47,7 @@ const EventCreate = () => {
   const fetchCategories = async () => {
     const token = localStorage.getItem('token');
     try {
-      const response = await axios.get(`http://localhost:8080/categories`,{
+      const response = await axios.get(`${process.env.REACT_APP_API_URL}/categories`,{
           headers: {
             'Authorization': `Bearer ${token}`
           }
@@ -62,7 +62,7 @@ const EventCreate = () => {
   const eventSubmit = (e) => {
     e.preventDefault();
     const token = localStorage.getItem('token');
-    axios.post(`http://localhost:8080/evenements/create`, 
+    axios.post(`${process.env.REACT_APP_API_URL}/evenements/create`, 
       { name: name, totalSeats: totalSeats,
         categoryId: categoryId, dateEvent: dateEvent,
         hourBegin: hourBegin, hourEnding: hourEnding,

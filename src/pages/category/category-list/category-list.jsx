@@ -20,7 +20,7 @@ const CategoryList = () => {
         window.location.href = "/deconnexion";
       }
       try {
-          await axios.get('http://localhost:8080/users/check-connected-admin', {
+          await axios.get(`${process.env.REACT_APP_API_URL}/users/check-connected-admin`, {
           headers: {
             'Authorization': `Bearer ${token}`
           }
@@ -36,7 +36,7 @@ const CategoryList = () => {
   const fetchCategories = async (page, size) => {
     const token = localStorage.getItem('token');
     try {
-      const response = await axios.get(`http://localhost:8080/categories/paginated/${page}/${size}`,{
+      const response = await axios.get(`${process.env.REACT_APP_API_URL}/categories/paginated/${page}/${size}`,{
           headers: {
             'Authorization': `Bearer ${token}`
           }
@@ -84,7 +84,7 @@ const CategoryList = () => {
   const deleteIfHasNotEvent = async (id) => {
     const token = localStorage.getItem('token');
     try {
-       await axios.get(`http://localhost:8080/evenements/check-category/${id}`,{
+       await axios.get(`${process.env.REACT_APP_API_URL}/evenements/check-category/${id}`,{
           headers: {
             'Authorization': `Bearer ${token}`
           }
@@ -93,7 +93,7 @@ const CategoryList = () => {
 
 
     } catch (error) {
-      alert('La catégorie a des evenements fait attention veuillez supprimer les evenements lié avant de supprimer la categorie.');
+      alert('La catégorie a des événements. Faites attention : veuillez supprimer les événements liés avant de supprimer la catégorie.');
     }
 
     };
@@ -102,7 +102,7 @@ const CategoryList = () => {
   const deleteCategory = async (id) => {
     const token = localStorage.getItem('token');
     try {
-      await axios.delete(`http://localhost:8080/categories/delete/${id}`, {
+      await axios.delete(`${process.env.REACT_APP_API_URL}/categories/delete/${id}`, {
         headers: {
           'Authorization': `Bearer ${token}`
         }
@@ -134,7 +134,7 @@ const CategoryList = () => {
   
   return (
     <div className="container">
-    <h1 className="mb-0">Liste des Categories</h1>
+    <h1 className="mb-0">Liste des categories</h1>
 
    <div className="d-flex justify-content-between align-items-center">
     <div></div>

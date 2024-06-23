@@ -17,7 +17,7 @@ const CardTicket = ({ ticket, handleTickets }) => {
   const handleUnsubscribe = async (uuid) => {
     try {
       const token = localStorage.getItem('token');
-      await axios.delete(`http://localhost:8080/users/ticket/me/cancel/${uuid}`, {
+      await axios.delete(`${process.env.REACT_APP_API_URL}/users/ticket/me/cancel/${uuid}`, {
         headers: {
           'Authorization': `Bearer ${token}`
         }
@@ -28,9 +28,6 @@ const CardTicket = ({ ticket, handleTickets }) => {
 
         }
   };
-
-
-
 
   return (
     <div className={cardClassName}>

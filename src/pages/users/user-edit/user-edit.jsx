@@ -38,7 +38,7 @@ const UserEdit = () => {
 
   const fetchUser = useCallback(async () =>{
     const token = localStorage.getItem('token');
-    axios.get(`http://localhost:8080/users/informations/${id}`, {
+    axios.get(`${process.env.REACT_APP_API_URL}/users/informations/${id}`, {
       headers: {
         'Authorization': `Bearer ${token}`
       }
@@ -59,7 +59,7 @@ const UserEdit = () => {
   const handleRole = async () => {
     const token = localStorage.getItem('token');
     try {
-      await axios.patch(`http://localhost:8080/users/change-role/${id}`,{}, {
+      await axios.patch(`${process.env.REACT_APP_API_URL}/users/change-role/${id}`,{}, {
         headers: {
           'Authorization': `Bearer ${token}`
         }

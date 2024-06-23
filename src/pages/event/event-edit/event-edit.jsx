@@ -28,7 +28,7 @@ const EventEdit = () => {
         window.location.href = "/deconnexion";
       }
       try {
-          await axios.get('http://localhost:8080/users/check-connected-admin', {
+          await axios.get(`${process.env.REACT_APP_API_URL}/users/check-connected-admin`, {
           headers: {
             'Authorization': `Bearer ${token}`
           }
@@ -46,7 +46,7 @@ const EventEdit = () => {
   const fetchCategories = async () => {
     const token = localStorage.getItem('token');
     try {
-      const response = await axios.get(`http://localhost:8080/categories`,{
+      const response = await axios.get(`${process.env.REACT_APP_API_URL}/categories`,{
           headers: {
             'Authorization': `Bearer ${token}`
           }
@@ -60,7 +60,7 @@ const EventEdit = () => {
   const fetchEvent = useCallback(async () => {
     const token = localStorage.getItem('token');
     try {
-      const response = await axios.get(`http://localhost:8080/evenements/details/${id}`,{
+      const response = await axios.get(`${process.env.REACT_APP_API_URL}/evenements/details/${id}`,{
           headers: {
             'Authorization': `Bearer ${token}`
           }
@@ -88,7 +88,7 @@ const EventEdit = () => {
   const eventSubmit = (e) => {
     e.preventDefault();
     const token = localStorage.getItem('token');
-    axios.put(`http://localhost:8080/evenements/update/${id}`, 
+    axios.put(`${process.env.REACT_APP_API_URL}/evenements/update/${id}`, 
       { name: name,
         categoryId: categoryId, dateEvent: dateEvent, totalSeats: totalSeats,
         hourBegin: hourBegin, hourEnding: hourEnding,
@@ -182,12 +182,11 @@ const EventEdit = () => {
   return (
     <div className="Event-create-page">
       <button className="return-button" onClick={returnPreviousPage}>retour</button>
-
       <div className="profile-container">
         <div className="profile-header mb-3">
         <h1>Edition/Détail d'un évènement</h1>
         {!isEditingEvent && (
-            <button className="edit-button" onClick={() => setIsEditingEvent(true)}>Edit Event</button>
+            <button className="edit-button" onClick={() => setIsEditingEvent(true)}>Éditer</button>
           )}
         </div>
         <h5 onClick={handleEditEvent}>Nom: {isEditingEvent ? <input type="text" name="name" value={name} onChange={handleEventChange} className="input-edit"/> : name }</h5>
@@ -250,14 +249,13 @@ const EventEdit = () => {
 
     {isEditingEvent && (
     <form onSubmit={eventSubmit} className="edit-form">
-    <button type="submit" className="save-button">Save</button>
+    <button type="submit" className="save-button">Sauvegarder</button>
     <button type="button" className="cancel-button" onClick={() => setIsEditingEvent(false)}>Annuler</button>
     </form>
     )};
 
 {!isEditingEvent && (
         <button className="action-button" onClick={viewSubscription}>Voir les inscriptions liés</button>
-     
    )}
       </div>
       
