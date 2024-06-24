@@ -161,15 +161,22 @@ const EventListCard = () => {
       <button className="category-button" onClick={() => changeItemsPerPageEventCard(0, itemsPerPage) }>aucun filtre</button> 
         <div className="category-buttons">
 
-          {categories.slice(startIndexCat, startIndexCat + itemsPerPageCat).map((category) => (
-            <button
-              key={category.uuid}
-              onClick={() => handleCategoryClick( category.uuid, 0, itemsPerPage)}
-              className="category-button"
-            >
-              {category.name}
-            </button>
-          ))}
+        {categories && categories.length > 0 ? (
+  categories.slice(startIndexCat, startIndexCat + itemsPerPageCat).map((category) => (
+    <button
+      key={category.uuid}
+      onClick={() => handleCategoryClick(category.uuid, 0, itemsPerPage)}
+      className="category-button"
+    >
+      {category.name}
+    </button>
+  ))
+) : (
+  <div className="alert alert-info text-center">
+    Aucune catégorie trouvée.
+  </div>
+)}
+
         </div>
         <div className="pagination-buttons">
           <button onClick={handlePrevCatClick} disabled={currentPage > 0} className="buttonPagination">
