@@ -198,7 +198,7 @@ const EventListCard = () => {
       </div>
       <div className="event-list">
 
-        {events.map((event) => (
+        {Array.isArray(events) && events.map((event) => (
           <EventCard key={event.name} event={event} />
         ))}
       </div>
