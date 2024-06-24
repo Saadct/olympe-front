@@ -161,7 +161,7 @@ const EventListCard = () => {
       <button className="category-button" onClick={() => changeItemsPerPageEventCard(0, itemsPerPage) }>aucun filtre</button> 
         <div className="category-buttons">
 
-        {categories && categories.length > 0 ? (
+        {Array.isArray(categories) && categories.length > 0 ? (
   categories.slice(startIndexCat, startIndexCat + itemsPerPageCat).map((category) => (
     <button
       key={category.uuid}
@@ -197,6 +197,7 @@ const EventListCard = () => {
 </div>
       </div>
       <div className="event-list">
+
         {events.map((event) => (
           <EventCard key={event.name} event={event} />
         ))}
