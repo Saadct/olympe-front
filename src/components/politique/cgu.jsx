@@ -8,7 +8,7 @@ const CGU = () => {
       <h1>Conditions Générales d'Utilisation (CGU)</h1>
       <p><strong>1. Préambule</strong></p>
       <p>
-        Les présentes Conditions Générales d'Utilisation (ci-après "CGU") régissent l'accès et l'utilisation du site web et de l'application [Nom du Projet] (ci-après "Plateforme"). En s'inscrivant ou en utilisant la Plateforme, l'utilisateur (ci-après "Utilisateur") accepte sans réserve les présentes CGU.
+        Les présentes Conditions Générales d'Utilisation (ci-après "CGU") régissent l'accès et l'utilisation du site web et de l'application Olympe (ci-après "Plateforme"). En s'inscrivant ou en utilisant la Plateforme, l'utilisateur (ci-après "Utilisateur") accepte sans réserve les présentes CGU.
       </p>
 
       <p><strong>2. Objet</strong></p>
@@ -44,27 +44,27 @@ const CGU = () => {
       <p><strong>5. Responsabilité</strong></p>
       <p><strong>5.1 Responsabilité de l'Utilisateur</strong></p>
       <p>
-        L'Utilisateur est responsable de l'utilisation qu'il fait de la Plateforme et de tout préjudice direct ou indirect qu'il pourrait causer à [Nom du Projet] ou à des tiers du fait de cette utilisation.
+        L'Utilisateur est responsable de l'utilisation qu'il fait de la Plateforme et de tout préjudice direct ou indirect qu'il pourrait causer à Olympe ou à des tiers du fait de cette utilisation.
       </p>
 
-      <p><strong>5.2 Limitation de responsabilité de [Nom du Projet]</strong></p>
+      <p><strong>5.2 Limitation de responsabilité de Olympe</strong></p>
       <p>
-        [Nom du Projet] ne peut être tenu responsable des dommages directs ou indirects résultant de l'utilisation de la Plateforme, y compris la perte de données ou la corruption de fichiers.
+      Olympe ne peut être tenu responsable des dommages directs ou indirects résultant de l'utilisation de la Plateforme, y compris la perte de données ou la corruption de fichiers.
       </p>
 
       <p><strong>6. Propriété Intellectuelle</strong></p>
       <p>
-        Tous les éléments de la Plateforme, y compris les textes, images, logiciels, et bases de données, sont la propriété exclusive de [Nom du Projet] ou de ses partenaires. Toute reproduction, représentation, ou diffusion, en tout ou en partie, des éléments de la Plateforme est interdite sans l'autorisation écrite de [Nom du Projet].
+        Tous les éléments de la Plateforme, y compris les textes, images, logiciels, et bases de données, sont la propriété exclusive de Olympe ou de ses partenaires. Toute reproduction, représentation, ou diffusion, en tout ou en partie, des éléments de la Plateforme est interdite sans l'autorisation écrite de Olympe.
       </p>
 
       <p><strong>7. Protection des Données Personnelles</strong></p>
       <p>
-        Les données personnelles des Utilisateurs sont collectées et traitées conformément à la Politique de Confidentialité de [Nom du Projet]. L'Utilisateur dispose d'un droit d'accès, de rectification, et de suppression de ses données personnelles en contactant [contact@nomduprojet.com].
+        Les données personnelles des Utilisateurs sont collectées et traitées conformément à la Politique de Confidentialité de Olympe. L'Utilisateur dispose d'un droit d'accès, de rectification, et de suppression de ses données personnelles en contactant [contact@nomduprojet.com].
       </p>
 
       <p><strong>8. Modification des CGU</strong></p>
       <p>
-        [Nom du Projet] se réserve le droit de modifier les présentes CGU à tout moment. Les modifications entreront en vigueur dès leur publication sur la Plateforme. L'Utilisateur est invité à consulter régulièrement les CGU pour prendre connaissance des éventuelles modifications.
+        Olympe se réserve le droit de modifier les présentes CGU à tout moment. Les modifications entreront en vigueur dès leur publication sur la Plateforme. L'Utilisateur est invité à consulter régulièrement les CGU pour prendre connaissance des éventuelles modifications.
       </p>
 
       <p><strong>9. Droit Applicable et Juridiction Compétente</strong></p>
@@ -74,7 +74,7 @@ const CGU = () => {
 
       <p><strong>10. Contact</strong></p>
       <p>
-        Pour toute question concernant les présentes CGU, l'Utilisateur peut contacter [Nom du Projet] à l'adresse suivante : [contact@nomduprojet.com].
+        Pour toute question concernant les présentes CGU, l'Utilisateur peut contacter Olympe à l'adresse suivante : [contact@nomduprojet.com].
       </p>
     </div>
     </div>

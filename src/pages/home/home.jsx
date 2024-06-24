@@ -14,7 +14,8 @@ function Home() {
       />
       <h2>Des événements pour tous chez Olympe !</h2>
 
-      <p>
+
+      <p className="mt-3 mb-3">
       Bienvenue sur Olympe, la plateforme ultime pour découvrir et participer à des événements de tous genres.
       Que vous soyez un passionné de musique, un amateur de théâtre, un adepte de sport ou simplement à la recherche de nouvelles expériences, 
       Olympe est votre destination idéale pour explorer et profiter d'une multitude d'événements.
@@ -53,13 +54,13 @@ function Home() {
         </Carousel>
       </div>
 
-      <p>
+      <p className="mb-5">
       Nous croyons que chaque jour peut être une nouvelle aventure.
       C'est pourquoi nous nous efforçons de rassembler les événements les plus passionnants et diversifiés pour vous offrir des moments inoubliables.
       <br></br>Trouvez ces évenement ici:
       </p>
 
-      <a href="/evenements" className="action-button">Commencer</a>
+      <a href="/evenements" className="action-button mt-3">Commencer</a>
 
 
     </div>
