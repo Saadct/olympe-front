@@ -42,7 +42,7 @@ const ViewProfil = () => {
     
     const token = localStorage.getItem('token');
 
-    axios.get('http://localhost:8080/users/me', {
+    axios.get(`${process.env.REACT_APP_API_URL}/users/me`, {
       headers: {
         'Authorization': `Bearer ${token}`
       }
@@ -85,7 +85,7 @@ const ViewProfil = () => {
   const handleProfileSubmit = (e) => {
     e.preventDefault();
     const token = localStorage.getItem('token');
-    axios.put('http://localhost:8080/users/me', 
+    axios.put(`${process.env.REACT_APP_API_URL}/users/me`, 
       { fullName: editableFullname, email: editableEmail, firstName: firstName, name: name}
       , {
         headers: {
