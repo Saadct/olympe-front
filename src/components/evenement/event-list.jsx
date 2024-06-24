@@ -197,10 +197,16 @@ const EventListCard = () => {
 </div>
       </div>
       <div className="event-list">
-
-        {Array.isArray(events) && events.map((event) => (
+        {Array.isArray(events) && events.length > 0 ? (
+          events.map((event) => (
           <EventCard key={event.name} event={event} />
-        ))}
+        ))
+        ) : (
+        <div className="alert alert-info text-center">
+        Aucun événement trouvé.
+        </div>
+        )}
+
       </div>
       <div className="pagination-manage">
       <div className="pagination-buttons centered-button">
