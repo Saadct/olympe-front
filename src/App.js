@@ -60,7 +60,7 @@ function App() {
         <Route path="/evenements" element={<EventListCard/>} />
         <Route path="/evenements/details/:eventId" element={<EventDetailPage/>} />
      
-        {isLoggedIn && (
+        {userRole !== null && (
         <>
         <Route path="/user/profil" element={ <ViewProfil /> } />
         <Route path="/user/profil/password" element={<ChangePasswordPage/> } />

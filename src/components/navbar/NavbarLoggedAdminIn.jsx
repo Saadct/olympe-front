@@ -8,7 +8,7 @@ const NavbarLoggedAdminIn = () => {
     <Container>
       <Navbar.Brand href="/">Olympe <span style={{fontSize:"11px"}}>administrateur</span></Navbar.Brand>
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
-      <Navbar.Collapse id="basic-navbar-nav">
+      <Navbar.Collapse id="basic-navbar-nav" className="light">
         <Nav className="me-auto">
           <Nav.Link href="/">Accueil</Nav.Link>
           <Nav.Link href="/admin/user-list">Utilisateurs</Nav.Link>
