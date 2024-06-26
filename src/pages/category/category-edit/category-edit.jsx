@@ -51,14 +51,20 @@ const CategoryEdit = () => {
     });
   }, [id]);
 
-  const handleCategoryChange = (e) => {
+  const categoryChange = (e) => {
     const { name, value } = e.target;
+    const regex = /^[a-zA-Z0-9 ]*$/;
     if (name === 'type') {
-      setEditableType(value);
+      if (regex.test(value)) {
+        setType(value);
+      }
     } else if (name === 'name') {
-      setEditableName(value);
+      if (regex.test(value)) {
+        setName(value);
+      }
     }
   };
+  
 
 
   const handleEditCategory = () => {
@@ -104,12 +110,12 @@ const CategoryEdit = () => {
 
       <div className="profile-container">
         <div className="profile-header">
-          <h1 onClick={handleEditCategory}>{isEditingCategory ? <input type="text" name="name" value={editableName} onChange={handleCategoryChange} className="input-edit"/> : "nom: "+ name}</h1>
+          <h1 onClick={handleEditCategory}>{isEditingCategory ? <input type="text" name="name" value={editableName} onChange={categoryChange} className="input-edit"/> : "nom: "+ name}</h1>
           {!isEditingCategory && (
             <button className="edit-button" onClick={() => setIsEditingCategory(true)}>Éditer</button>
           )}
         </div>
-        <h1 onClick={handleEditCategory}>{isEditingCategory ? <input type="text" name="type" value={editableType} onChange={handleCategoryChange} className="input-edit"/> : "type: " + (type ? type : "")}</h1>
+        <h1 onClick={handleEditCategory}>{isEditingCategory ? <input type="text" name="type" value={editableType} onChange={categoryChange} className="input-edit"/> : "type: " + (type ? type : "")}</h1>
 
         {isEditingCategory && (
           <form onSubmit={handleCategorySubmit} className="edit-form mb-3">

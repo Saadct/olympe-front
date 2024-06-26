@@ -6,8 +6,29 @@ import 'react-toastify/dist/ReactToastify.css';
 const LoginPage = ({ setIsLoggedIn }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [message, setMessage] = useState('');
 
-  const handleLogin = async (event) => {
+  const passwordRegex = /^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[?!;*@#$%^&-+=()])(?=\S+$).{8,20}$/;
+
+  const inputChange = (e) => {
+    setMessage('');
+    const { name, value } = e.target;
+
+    if (name === 'email') {
+      if (value.includes(' ') || /[!#$%^&*()_+\=\[\]{};':"\\|,<>\/?]/.test(value)) {
+        setMessage('Les espaces et les caractères spéciaux ne sont pas autorisés dans l\'email.');
+      } else {
+        setEmail(value);
+      }
+    } else if (name === 'password') {
+      setPassword(value);
+      if (!passwordRegex.test(value)) {
+        setMessage('Le mot de passe doit respecter les critères spécifiés.');
+      } 
+    }
+  };
+
+  const submitLogin = async (event) => {
     event.preventDefault();
     try {
       const response = await axios.post(`${process.env.REACT_APP_API_URL}/auth/login`, {
@@ -51,15 +72,16 @@ const LoginPage = ({ setIsLoggedIn }) => {
           <div className="card">
             <div className="card-body">
               <h2 className="card-title text-center">Connexion</h2>
-              <form onSubmit={handleLogin}>
+              <form onSubmit={submitLogin}>
                 <div className="form-group">
                   <label htmlFor="email">Email :</label>
                   <input
                     type="email"
                     className="form-control"
                     id="email"
+                    name="email"
                     value={email}
-                    onChange={(e) => setEmail(e.target.value)}
+                    onChange={inputChange}
                     required
                   />
                 </div>
@@ -69,15 +91,17 @@ const LoginPage = ({ setIsLoggedIn }) => {
                     type="password"
                     className="form-control"
                     id="password"
+                    name="password"
                     value={password}
-                    onChange={(e) => setPassword(e.target.value)}
+                    onChange={inputChange}
                     required
                   />
                 </div>
-                <div className="d-flex justify-content-center">  
+                <div className="d-flex justify-content-center">
                   <button type="submit" className="action-button mt-4">Se connecter</button>
                 </div>
               </form>
+              {message && <p className="mt-3 text-center">{message}</p>}
               <ToastContainer />
             </div>
           </div>

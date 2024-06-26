@@ -15,6 +15,7 @@ const EventCreate = () => {
 
   const [longDescription, setLongDescription] = useState('');
 
+  const [message, setMessage] = useState('');
 
 
   const [categories, setCategories] = useState([]);
@@ -73,7 +74,7 @@ const EventCreate = () => {
           'Authorization': `Bearer ${token}`
         }
       }).then(response => {
-        toast.success('Catégorie ajoutée avec succès !', {
+        toast.success('événement ajoutée avec succès !', {
           position: "top-right",
           autoClose: 2000,
           hideProgressBar: false,
@@ -89,7 +90,7 @@ const EventCreate = () => {
 
       })
       .catch(error => {
-        toast.error('Erreur lors de l\'ajout de la évènement.', {
+        toast.error('Erreur lors du processus de création de cette évènement.', {
           position: "top-right",
           autoClose: 2000,
           hideProgressBar: false,
@@ -98,7 +99,7 @@ const EventCreate = () => {
           draggable: true,
           progress: undefined,
         });
-        console.error('Erreur lors de la mise à jour de la évènement:', error);
+        console.error('Erreur lors de la création de cette évènement:', error);
       });
   };
 
@@ -108,34 +109,53 @@ const EventCreate = () => {
   };
 
   
-  const handleEventChange = (e) => {
+  const eventChange = (e) => {
+    setMessage('');
     const { name, value } = e.target;
-    if (name === 'totalSeats') {
-      setTotalSeats(Number(value));
-    } else if (name === 'name') {
-      setName(value);
-    }
-    else if (name === 'dateEvent') {
-        setDateEvent(value);
+  
+    const regex = /^[a-zA-Z0-9À-ÿ\s.,:;!?"'()-]*$/;
+  
+    if (!regex.test(value)) {
+      setMessage(`Le champ ${name} ne doit contenir que des lettres, des chiffres et les caractères spéciaux suivants : À-ÿ\s.,:;!?"'()-`);
+      
+    }else{
+      switch (name) {
+        case 'name':
+          setName(value);
+          break;
+        case 'shortDescription':
+          setShortDescription(value);
+          break;
+        case 'longDescription':
+          setLongDescription(value);
+          break;
+        default:
+          break;
       }
-      else if (name === 'hourBegin') {
-        setHourBegin(value);
-      }
-      else if (name === 'hourEnding') {
-        setHourEnding(value);
-      }
-      else if (name === 'shortDescription') {
-        setShortDescription(value);
-      }
-      else if (name === 'longDescription') {
-        setLongDescription(value);
-      }else {
-        
-        const selectedCategoryId = e.target.value;
-        setCategoryId(selectedCategoryId);  
-      } 
 
+    }
+  
+    switch (name) {
+      case 'totalSeats':
+        setTotalSeats(Number(value));
+        break;
+      case 'dateEvent':
+        setDateEvent(value);
+        break;
+      case 'hourBegin':
+        setHourBegin(value);
+        break;
+      case 'hourEnding':
+        setHourEnding(value);
+        break;
+      case 'categoryId':
+        setCategoryId(value);
+        break;
+      default:
+        break;
+    }
   };
+  
 
   useEffect(() => {
     fetchCategories(); 
@@ -151,17 +171,17 @@ const EventCreate = () => {
 
         </div>
         <h5>Nom</h5>
-        <input type="text" name="name" onChange={handleEventChange} className="input-edit mb-1"/>
+        <input type="text" name="name" value={name} onChange={eventChange} className="input-edit mb-1"/>
 
         <h5>Total de place</h5>
-        <input type="number" name="totalSeats" onChange={handleEventChange} className="input-edit"/> 
+        <input type="number" name="totalSeats"  onChange={eventChange} className="input-edit"/> 
 
         <div className="form-group">
           <label>Choisissez une catégorie :</label>
           <select
             id="categoryId"
             className="form-control"
-            onChange={handleEventChange}
+            onChange={eventChange}
           >
             <option value="" >Sélectionnez une catégorie</option>
             {categories.map(category => (
@@ -174,36 +194,35 @@ const EventCreate = () => {
 
         <div class="form-group mt-4">
         <label>Choisissez une date :</label>
-        <input type="date" className="form-control" onChange={handleEventChange} name="dateEvent"/>
+        <input type="date" className="form-control" onChange={eventChange} name="dateEvent"/>
         <small className="form-text text-muted">La date doit être celle du présent ou futur, pas passé.</small>
       </div>
 
       <div class="form-group mt-4">
         <label>Choisissez une heure du début de l'évènement :</label>
-        <input type="time" className="form-control" onChange={handleEventChange} name="hourBegin"/>
+        <input type="time" className="form-control" onChange={eventChange} name="hourBegin"/>
       </div>
 
       <div class="form-group mt-4 mb-4">
         <label>Choisissez une heure de fin de l'évènement :</label>
-        <input type="time" className="form-control" onChange={handleEventChange} name="hourEnding"/>
+        <input type="time" className="form-control" onChange={eventChange} name="hourEnding"/>
       </div>
 
       <h5>Courte déscription</h5>
-      <textarea type="textarea" name="shortDescription" onChange={handleEventChange}
+      <textarea type="textarea" name="shortDescription" value={shortDescription} onChange={eventChange}
         style={{ width: "80%", minHeight: "100px", resize: "vertical" }}
       className="input-edit"/> 
 
     <h5>Longue déscription</h5>
-      <textarea type="textarea" name="longDescription" onChange={handleEventChange}
+      <textarea type="textarea" name="longDescription" value={longDescription} onChange={eventChange}
         style={{ width: "100%", minHeight: "200px", resize: "vertical" }}
       className="input-edit"/> 
 
 
     <form onSubmit={eventSubmit} className="edit-form">
-    <button type="submit" className="save-button">Save</button>
+    <button type="submit" className="save-button">Créer</button>
     </form>
-
-          
+    {message && <p className="mt-3 text-center">{message}</p>} 
       </div>
       <ToastContainer />
     </div>

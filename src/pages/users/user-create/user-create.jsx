@@ -13,6 +13,8 @@ const UserCreate = () => {
 
   const [name, setName] = useState('');
   const navigate = useNavigate(); 
+  const [message, setMessage] = useState('');
+  const passwordRegex = /^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[?!;*@#$%^&-+=()])(?=\S+$)$/;
 
 
   useEffect(() => {
@@ -82,8 +84,17 @@ const UserCreate = () => {
   };
 
   
-  const handleUserChange = (e) => {
+  const userChange = (e) => {
+    setMessage('');
     const { name, value } = e.target;
+
+    if (name === 'name' || name === 'fullName' || name === 'firstName' && /[^a-zA-Z0-9 ]/.test(value)) {
+          setMessage(`Le champ ${name} ne doit contenir que des lettres, des chiffres et des espaces.`);
+      if (value.length > 20) {
+          setMessage(`Le champ ${name} ne doit pas dépasser 20 caractères.`);
+      }
+      return;
+  }
     if (name === 'email') {
       setEmail(value);
     } else if (name === 'name') {
@@ -98,6 +109,9 @@ const UserCreate = () => {
       else if (name === 'password') {
         setPassword(value);
       }
+      if (name ==='password'  && !passwordRegex.test(value)) {
+        setMessage('Le mot de passe doit contenir au moins 8 caractères et peut aller jusqu/à 20 caractères. Il doit inclure au moins un chiffre, une lettre minuscule, une lettre majuscule, et l/un des caractères spéciaux suivants : /?!;*@#$%^&-+=()/. De plus, aucun espace blanc n/est autorisé dans le mot de passe.');
+      }
   };
 
   return (
@@ -108,15 +122,16 @@ const UserCreate = () => {
         <div className="profile-header">
         <h1>Création d'un utilisateur</h1>
         </div>
-        <input type="text" name="name" onChange={handleUserChange} className="input-edit input-spacing" placeholder='prenom'/>
-        <input type="text" name="firstName" onChange={handleUserChange} className="input-edit input-spacing" placeholder='nom'/>
-        <input type="text" name="fullName" onChange={handleUserChange} className="input-edit input-spacing" placeholder='surnom'/> 
-        <input type="email" name="email" onChange={handleUserChange} className="input-edit input-spacing" placeholder='email'/> 
-        <input type="password" name="password" onChange={handleUserChange} className="input-edit input-spacing" placeholder='mot de passe'/> 
+        <input type="text" name="name" onChange={userChange} className="input-edit input-spacing" placeholder='prenom'/>
+        <input type="text" name="firstName" onChange={userChange} className="input-edit input-spacing" placeholder='nom'/>
+        <input type="text" name="fullName" onChange={userChange} className="input-edit input-spacing" placeholder='surnom'/> 
+        <input type="email" name="email" onChange={userChange} className="input-edit input-spacing" placeholder='email'/> 
+        <input type="password" name="password" onChange={userChange} className="input-edit input-spacing" placeholder='mot de passe'/> 
 
           <form onSubmit={userSubmit} className="edit-form">
             <button type="submit" className="save-button">Save</button>
           </form>
+          {message && <p className="mt-3 text-center">{message}</p>}
       </div>
       <ToastContainer />
     </div>

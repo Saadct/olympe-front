@@ -20,6 +20,7 @@ const EventEdit = () => {
   const [categoryId, setCategoryId] = useState('');
   const [isEditingEvent, setIsEditingEvent] = useState(false);
   const [categoryName, setCategoryName] = useState('');
+  const [message, setMessage] = useState('');
 
   useEffect(() => {
     const token = localStorage.getItem('token');
@@ -82,9 +83,6 @@ const EventEdit = () => {
   },[id]);
 
 
-
-
-
   const eventSubmit = (e) => {
     e.preventDefault();
     const token = localStorage.getItem('token');
@@ -139,8 +137,18 @@ const EventEdit = () => {
   };
 
   
-  const handleEventChange = (e) => {
+  const eventChange = (e) => {
+
     const { name, value } = e.target;
+    setMessage('')
+
+    if (name === 'name' || name === 'shortDescription' || name === 'longDescription') {
+      if (/[^a-zA-Z0-9À-ÿ\s.,:;!?"'()\-]/.test(value)) {
+          setMessage(`Le champ ${name} ne doit contenir que des lettres, des chiffres et les caractères spéciaux suivants : À-ÿ\s.,:;!?"'()-`);
+          return;
+      }
+  }
+
     if (name === 'totalSeats') {
       setTotalSeats(Number(value));
     } else if (name === 'name') {
@@ -168,7 +176,7 @@ const EventEdit = () => {
 
   };
 
-  const handleEditEvent = () => {
+  const changeEditEvent = () => {
     setIsEditingEvent(true);
   };
 
@@ -189,16 +197,16 @@ const EventEdit = () => {
             <button className="edit-button" onClick={() => setIsEditingEvent(true)}>Éditer</button>
           )}
         </div>
-        <h5 onClick={handleEditEvent}>Nom: {isEditingEvent ? <input type="text" name="name" value={name} onChange={handleEventChange} className="input-edit"/> : name }</h5>
-        <h5 onClick={handleEditEvent}>Total de place: {isEditingEvent ? <input type="text" name="totalSeats" value={totalSeats} onChange={handleEventChange} className="input-edit"/> : totalSeats }</h5>
+        <h5 onClick={changeEditEvent}>Nom: {isEditingEvent ? <input type="text" name="name" value={name} onChange={eventChange} className="input-edit"/> : name }</h5>
+        <h5 onClick={changeEditEvent}>Total de place: {isEditingEvent ? <input type="text" name="totalSeats" value={totalSeats} onChange={eventChange} className="input-edit"/> : totalSeats }</h5>
         <h5>Place disponible: {availableSeats}</h5>
 
-        <h5 onClick={handleEditEvent}> Categorie :{isEditingEvent ? 
+        <h5 onClick={changeEditEvent}> Categorie :{isEditingEvent ? 
         <div className="form-group">
           <select
             id="categoryId"
             className="form-control mt-1"
-            onChange={handleEventChange}
+            onChange={eventChange}
             value={categoryId}
           >
             <option value="" >Sélectionnez une catégorie</option>
@@ -211,28 +219,28 @@ const EventEdit = () => {
         </div>
             : categoryName }</h5>
 
-        <h5 onClick={handleEditEvent}>Date début évènement: {isEditingEvent ? 
+        <h5 onClick={changeEditEvent}>Date début évènement: {isEditingEvent ? 
         <div class="form-group mt-1">
-        <input type="date" className="form-control" value={dateEvent} onChange={handleEventChange} name="dateEvent"/>
+        <input type="date" className="form-control" value={dateEvent} onChange={eventChange} name="dateEvent"/>
         <small className="form-text text-muted">La date doit être celle du présent ou futur, pas passé.</small>
       </div>
          : dateEvent }</h5>
 
-        <h5 onClick={handleEditEvent}>Heure début évènement: {isEditingEvent ? 
+        <h5 onClick={changeEditEvent}>Heure début évènement: {isEditingEvent ? 
         <div class="form-group mt-4">
-            <input type="time" className="form-control" onChange={handleEventChange} value={hourBegin} name="hourBegin"/>
+            <input type="time" className="form-control" onChange={eventChange} value={hourBegin} name="hourBegin"/>
         </div>
             : hourBegin }</h5>
 
-    <h5 onClick={handleEditEvent}>Heure Fin évènement: {isEditingEvent ? 
+    <h5 onClick={changeEditEvent}>Heure Fin évènement: {isEditingEvent ? 
       <div class="form-group mt-4 mb-4">
-        <input type="time" className="form-control" onChange={handleEventChange} value={hourEnding} name="hourEnding"/>
+        <input type="time" className="form-control" onChange={eventChange} value={hourEnding} name="hourEnding"/>
       </div>
         : hourEnding }</h5>
 
     <h5>Courte déscription</h5>
-    <p style={{ overflowWrap: "break-word" }} onClick={handleEditEvent} >{isEditingEvent ?
-      <textarea type="textarea" name="shortDescription" onChange={handleEventChange} value={shortDescription}
+    <p style={{ overflowWrap: "break-word" }} onClick={changeEditEvent} >{isEditingEvent ?
+      <textarea type="textarea" name="shortDescription" onChange={eventChange} value={shortDescription}
       style={{ width: "100%", minHeight: "100px", resize: "vertical" }}
       className="input-edit"/> 
       : shortDescription }</p>
@@ -240,8 +248,8 @@ const EventEdit = () => {
 
 
     <h5>Longue déscription</h5>
-    <p onClick={handleEditEvent} style={{ overflowWrap: "break-word" }}>{isEditingEvent ? 
-      <textarea type="textarea" name="longDescription" onChange={handleEventChange} value={longDescription}
+    <p onClick={changeEditEvent} style={{ overflowWrap: "break-word" }}>{isEditingEvent ? 
+      <textarea type="textarea" name="longDescription" onChange={eventChange} value={longDescription}
         style={{ width: "100%", minHeight: "200px", resize: "vertical" }}
       className="input-edit"/> 
             : longDescription }</p>
@@ -259,6 +267,8 @@ const EventEdit = () => {
    )}
       </div>
       
+      {message && <p className="mt-3 text-center">{message}</p>}
+
       <ToastContainer />
     </div>
   );

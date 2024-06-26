@@ -10,6 +10,8 @@ const ChangePasswordPage = () => {
   const [errorMessage, setErrorMessage] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
   const navigate = useNavigate(); 
+  const passwordRegex = /^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[?!;*@#$%^&-+=()])(?=\S+$).{8,20}$/;
+  const [message, setMessage] = useState('');
 
 
   useEffect(() => {
@@ -33,11 +35,26 @@ const ChangePasswordPage = () => {
 
 
 
+  const inputChange = (e) => {
+    setMessage('');
+    const { name, value } = e.target;
+
+    if (name ==='oldpassword' || name === 'newpassword' || name === 'confirmpassword'  && !passwordRegex.test(value)) {
+      setMessage('Le mot de passe doit contenir au moins 8 caractères et peut aller jusqu/à 20 caractères. Il doit inclure au moins un chiffre, une lettre minuscule, une lettre majuscule, et l/un des caractères spéciaux suivants : /?!;*@#$%^&-+=()/. De plus, aucun espace blanc n/est autorisé dans le mot de passe.');
+    }
+    if(name === 'oldpassword'){
+      setOldPassword(value);
+    }else if(name === 'newpassword'){
+      setNewPassword(value);
+    }
+    else{
+      setConfirmPassword(value);
+    }
+  };
 
 
 
-
-  const handleChangePassword = async (e) => {
+  const changePassword = async (e) => {
     e.preventDefault();
 
     if (newPassword !== confirmPassword) {
@@ -77,15 +94,16 @@ const ChangePasswordPage = () => {
               <h2 className="card-title text-center">Changer le mot de passe</h2>
               <Link to="/user/profil" className="action-button mb-5">Retour</Link> 
 
-              <form onSubmit={handleChangePassword}>
+              <form onSubmit={changePassword}>
                 <div className="form-group mt-3">
                   <label>Ancien mot de passe:</label>
                   <input
                     type="password"
                     className="form-control"
                     id="oldPassword"
+                    name="oldpassword"
                     value={oldPassword}
-                    onChange={(e) => setOldPassword(e.target.value)}
+                    onChange={inputChange}
                     required
                   />
                 </div>
@@ -95,8 +113,9 @@ const ChangePasswordPage = () => {
                     type="password"
                     className="form-control"
                     id="newPassword"
+                    name="newpassword"
                     value={newPassword}
-                    onChange={(e) => setNewPassword(e.target.value)}
+                    onChange={inputChange}
                     required
                   />
                 </div>
@@ -106,8 +125,9 @@ const ChangePasswordPage = () => {
                     type="password"
                     className="form-control"
                     id="confirmPassword"
+                    name="confirmpassword"
                     value={confirmPassword}
-                    onChange={(e) => setConfirmPassword(e.target.value)}
+                    onChange={inputChange}
                     required
                   />
                 </div>
@@ -115,6 +135,7 @@ const ChangePasswordPage = () => {
                 {successMessage && <div className="alert alert-success">{successMessage}</div>}
                 <button type="submit" className="action-button">Changer le mot de passe</button>
               </form>
+              {message && <p className="mt-3 text-center">{message}</p>}
             </div>
           </div>
         </div>

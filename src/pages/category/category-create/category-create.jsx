@@ -9,7 +9,7 @@ const CategoryCreate = () => {
   const [type, setType] = useState('');
   const [name, setName] = useState('');
   const navigate = useNavigate(); 
-
+  
 
   useEffect(() => {
     const token = localStorage.getItem('token');
@@ -75,14 +75,21 @@ const CategoryCreate = () => {
     navigate('/admin/category-list');
   };
   
-  const handleCategoryChange = (e) => {
+  const categoryChange = (e) => {
     const { name, value } = e.target;
+        const regex = /^[a-zA-Z0-9 ]*$/;
+  
     if (name === 'type') {
-      setType(value);
+      if (regex.test(value)) {
+        setType(value);
+      }
     } else if (name === 'name') {
-      setName(value);
+      if (regex.test(value)) {
+        setName(value);
+      }
     }
   };
+  
 
   return (
     <div className="category-create-page">
@@ -93,12 +100,12 @@ const CategoryCreate = () => {
         <h1>Création d'une categorie</h1>
 
         </div>
-        <input type="text" name="name" value={name} onChange={handleCategoryChange} className="input-edit input-spacing" placeholder='nom'/>
+        <input type="text" name="name" value={name} onChange={categoryChange} className="input-edit input-spacing" placeholder='nom'/>
 
 
-        <input type="text" name="type" value={type} onChange={handleCategoryChange} className="input-edit input-spacing" placeholder='type'/> 
+        <input type="text" name="type" value={type} onChange={categoryChange} className="input-edit input-spacing" placeholder='type'/> 
           <form onSubmit={categorySubmit} className="edit-form">
-            <button type="submit" className="save-button">Sauvegarder</button>
+            <button type="submit" className="save-button">Créer</button>
           </form>
       </div>
       <ToastContainer />

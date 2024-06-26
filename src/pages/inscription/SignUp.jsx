@@ -14,26 +14,30 @@ const Signup = () => {
 
   const navigate = useNavigate();
   const [message, setMessage] = useState('');
+  const passwordRegex = /^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[?!;*@#$%^&-+=()])(?=\S+$).{8,20}$/;
 
-  const handleChange = (e) => {
+  const inputChange = (e) => {
     setMessage('');
-
     const { name, value } = e.target;
     if ((name === 'name' || name === 'firstName' || name === 'email' || name === 'password') && value.includes(' ')) {
       setMessage('Les espaces ne sont pas autorisés.');
+     return;
     }
-    if (name === 'password' && value.length < 8) {
+    if ((name === 'name' || name === 'firstName' || name === 'email' || name === 'fullName') && /[!#$%^&*()_+\=\[\]{};':"\\|,<>\/?]/.test(value)) {
+      setMessage('Des caractères spéciaux ne sont pas autorisés dans ce champ.');
+    return
+    }
+    if (name === 'password' && !passwordRegex.test(value)) {
       setMessage('Le mot de passe doit contenir au moins 8 caractères et peut aller jusqu/à 20 caractères. Il doit inclure au moins un chiffre, une lettre minuscule, une lettre majuscule, et l/un des caractères spéciaux suivants : /?!;*@#$%^&-+=()/. De plus, aucun espace blanc n/est autorisé dans le mot de passe.');
+
     }
-    
     setFormData({
       ...formData,
       [name]: value,
     });
-
   };
 
-  const handleSubmit = async (e) => {
+  const userSubmit = async (e) => {
     e.preventDefault();
     try {
       await axios.post(`${process.env.REACT_APP_API_URL}/auth/signup`, formData);
@@ -55,7 +59,7 @@ const Signup = () => {
         navigate("/");
       }, 3000); 
     } catch (error) {
-      toast.error('Erreur lors de l/inscription de la catégorie.', {
+      toast.error('Erreur lors de la création du compte.', {
         position: "top-right",
         autoClose: 2000,
         hideProgressBar: false,
@@ -64,7 +68,7 @@ const Signup = () => {
         draggable: true,
         progress: undefined,
       });
-      setMessage('Erreur lors de l\'inscription. Veuillez réessayer n/oubliez pas que votre mot de passe doit avoir + de 8 caracteres 1 majuscule et un caractere special.');
+      setMessage('Erreur lors de l\'inscription.');
     }
   };
 
@@ -75,7 +79,7 @@ const Signup = () => {
           <div className="card">
             <div className="card-body">
               <h2 className="card-title text-center">Inscription</h2>
-              <form onSubmit={handleSubmit}>
+              <form onSubmit={userSubmit}>
                 <div className="form-group">
                   <label htmlFor="fullName">Nom complet :</label>
                   <input
@@ -84,7 +88,7 @@ const Signup = () => {
                     id="fullName"
                     name="fullName"
                     value={formData.fullName}
-                    onChange={handleChange}
+                    onChange={inputChange}
                     required
                   />
                 </div>
@@ -96,7 +100,7 @@ const Signup = () => {
                     id="name"
                     name="name"
                     value={formData.name}
-                    onChange={handleChange}
+                    onChange={inputChange}
                     required
                   />
                 </div>
@@ -108,7 +112,7 @@ const Signup = () => {
                     id="firstName"
                     name="firstName"
                     value={formData.firstName}
-                    onChange={handleChange}
+                    onChange={inputChange}
                     required
                   />
                 </div>
@@ -120,7 +124,7 @@ const Signup = () => {
                     id="email"
                     name="email"
                     value={formData.email}
-                    onChange={handleChange}
+                    onChange={inputChange}
                     required
                   />
                 </div>
@@ -132,7 +136,7 @@ const Signup = () => {
                     id="password"
                     name="password"
                     value={formData.password}
-                    onChange={handleChange}
+                    onChange={inputChange}
                     required
                   />
                 </div>
@@ -148,7 +152,7 @@ const Signup = () => {
                   </label>
                 </div>
                 <div className="d-flex justify-content-center">  
-                  <button type="submit" className="action-button mt-2">Se connecter</button>
+                  <button type="submit" className="action-button mt-2">S'inscrire</button>
                 </div>
               </form>
               {message && <p className="mt-3 text-center">{message}</p>}
