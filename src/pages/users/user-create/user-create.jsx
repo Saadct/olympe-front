@@ -59,11 +59,11 @@ const UserCreate = () => {
           draggable: true,
           progress: undefined,
         });
-/*
+
         setTimeout(() => {
-            navigate('/admin/category-list');
+            navigate('/admin/user-list');
           }, 2000); 
-*/
+
       })
       .catch(error => {
         toast.error('Erreur lors de la création de l\'utilisateur.', {
@@ -117,6 +117,9 @@ const UserCreate = () => {
       setPassword(value);
       if (!passwordRegex.test(value)) {
         setMessage('Le mot de passe doit contenir au moins 8 caractères et peut aller jusqu’à 20 caractères. Il doit inclure au moins un chiffre, une lettre minuscule, une lettre majuscule, et l’un des caractères spéciaux suivants : ?!;*@#$%^&-+=(). Aucun espace blanc n’est autorisé.');
+        setTimeout(() => {
+          setMessage('');
+        }, 4000); 
       }
     }
   };

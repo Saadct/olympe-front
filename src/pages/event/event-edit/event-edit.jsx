@@ -257,7 +257,7 @@ const EventEdit = () => {
 
     {isEditingEvent && (
     <form onSubmit={eventSubmit} className="edit-form">
-    <button type="submit" className="save-button">Sauvegarder</button>
+    <button type="submit" className="save-button">édit</button>
     <button type="button" className="cancel-button" onClick={() => setIsEditingEvent(false)}>Annuler</button>
     </form>
     )};

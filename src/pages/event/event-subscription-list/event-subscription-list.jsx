@@ -108,7 +108,7 @@ const EventSubscriptionList = () => {
   };
 
   const detailButtonClick = (userId) => {
-    navigate(`/admin/event-edit/${userId}`);
+    navigate(`/admin/user-edit/${userId}`);
   };
 
   const createEventButton = () => {
@@ -184,7 +184,7 @@ const EventSubscriptionList = () => {
               <td>{subscription?.name}</td>
               <td>{subscription?.firstname}</td>
               <td>
-              <button className="action-button detail" onClick={() => detailButtonClick(subscription.uuid)}>
+              <button className="action-button detail" onClick={() => detailButtonClick(subscription.userUuid)}>
               <i className="bi bi-search"></i>
               </button>
               <button className="action-button remove" onClick={() => handleUnsubscribe(subscription.uuid)}>

@@ -71,11 +71,11 @@ const CategoryEdit = () => {
     setIsEditingCategory(true);
   };
 
-  const handleCategorySubmit = (e) => {
+  const categorySubmit = (e) => {
     e.preventDefault();
     const token = localStorage.getItem('token');
     axios.put(`${process.env.REACT_APP_API_URL}/categories/update/${id}`, 
-      { type: editableType, name: editableName}
+      { type: type, name: name}
       , {
         headers: {
           'Authorization': `Bearer ${token}`
@@ -83,14 +83,14 @@ const CategoryEdit = () => {
       })
       .then(response => {
         setIsEditingCategory(false);
-        setEditableName(editableName);
         setName(editableName);
-        setEditableType(editableType);
         setType(editableType)
       })
+
       .catch(error => {
         console.error('Erreur lors de la mise à jour de la category:', error);
       });
+      window.location.reload();
   };
 
 
@@ -110,16 +110,16 @@ const CategoryEdit = () => {
 
       <div className="profile-container">
         <div className="profile-header">
-          <h1 onClick={handleEditCategory}>{isEditingCategory ? <input type="text" name="name" value={editableName} onChange={categoryChange} className="input-edit"/> : "nom: "+ name}</h1>
+          <h1 onClick={handleEditCategory}>{isEditingCategory ? <input type="text" name="name" value={name} onChange={categoryChange} className="input-edit"/> : "nom: "+ name}</h1>
           {!isEditingCategory && (
             <button className="edit-button" onClick={() => setIsEditingCategory(true)}>Éditer</button>
           )}
         </div>
-        <h1 onClick={handleEditCategory}>{isEditingCategory ? <input type="text" name="type" value={editableType} onChange={categoryChange} className="input-edit"/> : "type: " + (type ? type : "")}</h1>
+        <h1 onClick={handleEditCategory}>{isEditingCategory ? <input type="text" name="type" value={type} onChange={categoryChange} className="input-edit"/> : "type: " + (type ? type : "")}</h1>
 
         {isEditingCategory && (
-          <form onSubmit={handleCategorySubmit} className="edit-form mb-3">
-            <button type="submit" className="save-button">Sauvegarder</button>
+          <form onSubmit={categorySubmit} className="edit-form mb-3">
+            <button type="submit" className="save-button">édit</button>
             <button type="button" className="cancel-button" onClick={() => setIsEditingCategory(false)}>Annuler</button>
           </form>
           
