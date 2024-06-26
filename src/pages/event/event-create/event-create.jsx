@@ -148,10 +148,15 @@ const EventCreate = () => {
       case 'hourEnding':
         setHourEnding(value);
         break;
-      case 'categoryId':
-        setCategoryId(value);
+      case 'name':
+        break;
+      case 'shortDescription':
+        break;
+      case 'longDescription':
         break;
       default:
+        const selectedCategoryId = e.target.value;
+        setCategoryId(selectedCategoryId);  
         break;
     }
   };

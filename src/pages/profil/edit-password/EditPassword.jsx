@@ -86,6 +86,7 @@ const ChangePasswordPage = () => {
   };
 
   return (
+    <div className="d-flex">
     <div className="container mt-5 d-flex justify-content-center align-items-center">
       <div className="row">
         <div className="col-md-6">
@@ -140,6 +141,7 @@ const ChangePasswordPage = () => {
           </div>
         </div>
       </div>
+    </div>
     </div>
   );
 };

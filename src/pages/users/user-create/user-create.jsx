@@ -87,32 +87,40 @@ const UserCreate = () => {
   const userChange = (e) => {
     setMessage('');
     const { name, value } = e.target;
-
-    if (name === 'name' || name === 'fullName' || name === 'firstName' && /[^a-zA-Z0-9 ]/.test(value)) {
-          setMessage(`Le champ ${name} ne doit contenir que des lettres, des chiffres et des espaces.`);
-      if (value.length > 20) {
-          setMessage(`Le champ ${name} ne doit pas dépasser 20 caractères.`);
+    const specialCharRegex = /[^a-zA-Z0-9 ]/;
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; // Expression régulière pour vérifier l'email
+  
+    if (name === 'name' || name === 'fullName' || name === 'firstName') {
+      if (specialCharRegex.test(value)) {
+        setMessage(`Le champ ${name} ne doit contenir que des lettres, des chiffres et des espaces.`);
+        return;
       }
-      return;
-  }
+      if (value.length > 20) {
+        setMessage(`Le champ ${name} ne doit pas dépasser 20 caractères.`);
+        return;
+      }
+    }
+  
     if (name === 'email') {
+      if (!emailRegex.test(value)) {
+        setMessage('Veuillez entrer une adresse email valide.');
+        return;
+      }
       setEmail(value);
     } else if (name === 'name') {
       setName(value);
+    } else if (name === 'fullName') {
+      setFullName(value);
+    } else if (name === 'firstName') {
+      setFirstName(value);
+    } else if (name === 'password') {
+      setPassword(value);
+      if (!passwordRegex.test(value)) {
+        setMessage('Le mot de passe doit contenir au moins 8 caractères et peut aller jusqu’à 20 caractères. Il doit inclure au moins un chiffre, une lettre minuscule, une lettre majuscule, et l’un des caractères spéciaux suivants : ?!;*@#$%^&-+=(). Aucun espace blanc n’est autorisé.');
+      }
     }
-    else if (name === 'fullName') {
-        setFullName(value);
-      }
-      else if (name === 'firstName') {
-        setFirstName(value);
-      }
-      else if (name === 'password') {
-        setPassword(value);
-      }
-      if (name ==='password'  && !passwordRegex.test(value)) {
-        setMessage('Le mot de passe doit contenir au moins 8 caractères et peut aller jusqu/à 20 caractères. Il doit inclure au moins un chiffre, une lettre minuscule, une lettre majuscule, et l/un des caractères spéciaux suivants : /?!;*@#$%^&-+=()/. De plus, aucun espace blanc n/est autorisé dans le mot de passe.');
-      }
   };
+  
 
   return (
     <div className="category-create-page">
@@ -129,7 +137,7 @@ const UserCreate = () => {
         <input type="password" name="password" onChange={userChange} className="input-edit input-spacing" placeholder='mot de passe'/> 
 
           <form onSubmit={userSubmit} className="edit-form">
-            <button type="submit" className="save-button">Save</button>
+            <button type="submit" className="save-button">Créer</button>
           </form>
           {message && <p className="mt-3 text-center">{message}</p>}
       </div>
