@@ -26,6 +26,7 @@ Pour démarrer le serveur de développement, utilisez la commande suivante :
 
 ```bash
 npm start
+```
 
 Cela lancera l'application en mode développement, accessible via http://localhost:3000.
 
